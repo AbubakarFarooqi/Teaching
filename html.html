@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+        background: #020024;
+        background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 44%, rgba(0, 212, 255, 1) 87%, rgba(2, 0, 36, 1) 96%);
+        height: 120vh;
+        width: 150vw;
+        }
+        .fixsize{
+        width: 200px;
+        height: 100px;
+        border-radius: 10px;
+        }
+
+        .ultra-parent{
+        flex-direction: column;
+        }
+        .parent{
+        display: flex;
+        flex-direction: column;
+        }
+        .DC{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-top: 20px;
+        border: whitesmoke 2px solid;
+        flex-direction: column;
+        margin-right: 50px;
+        background-color: whitesmoke;
+        border-radius: 10px;
+        position: relative;
+        /* top: 100px; */
+        right: -50px;
+        height: 400px;
+        width: 255px;
+        transition: all 0.8s ease;
+    
+        }
+        .DC2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        border: whitesmoke 2px solid;
+        flex-direction: column;
+        margin-right: 50px;
+        background-color: whitesmoke;
+        border-radius: 10px;
+        position: relative;
+        bottom: 0px;
+        right: -50px;
+        height: 400px;
+        width: 255px;
+        transition: all 0.8s ease;
+    
+        }
+        .DC button{
+        background-color: rgb(0, 98, 255);
+        color: white;
+        border-radius: 5px;
+        border-color: snow;
+        width: 200px;
+        height: 50px;
+        font-weight: bold;
+        transition: all 0.8s ease;
+
+        }
+        .DC2 button{
+        background-color: rgb(0, 98, 255);
+        color: white;
+        border-radius: 5px;
+        border-color: snow;
+        width: 200px;
+        height: 50px;
+        font-weight: bold;
+        transition: all 0.8s ease;
+
+        }
+        .DC button:hover{
+        background-color: white;
+        cursor: pointer;
+        color: rgb(0, 76, 199);
+    
+        }
+        .DC2 button:hover{
+        background-color: white;
+        cursor: pointer;
+        color: rgb(0, 76, 199);
+    
+        }
+        #div_1, #div_2,#div_3,#div_4,#div_5,#div_6,#div_7,#div_8{
+            overflow-y: scroll;
+            display: none;
+        }
+        .fixs1ze{
+            width: 200px;
+            border-radius: 10px;
+        }
+        .planes{
+            display: flex;
+            flex-direction: row;
+        }
+
+    </style>
+    <title>airplane web/DC</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="64x64" href="airplane_favicon_64x64.png">
+</head>
+<body>
+    <div class="ultra_parent">
+        <div class="parent">
+            <div class="planes">
+                <div class="DC" id="DC_1">
+                
+                <h1>the DC 1</h1>
+                <img class="fixsize"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMzlcRquq-4SJ3jrYzfRSzf8MT4BEnsGiW8LpZ4Cqsfn_wVHOe9Jg1AUE529NY63QEc58&usqp=CAU" alt="" id="air300">
+                <button id="DC1">see this plane</button>
+        
+                <div id="div_1">
+                    <p>The Douglas DC-1 was a prototype twin-engine all-metal monoplane that was the precursor to the legendary DC-2 and DC-3 airliners. Introduced in 1933, it was a high-performance aircraft that featured a two-person crew and could carry 12 passengers, setting speed records and establishing a new standard for commercial air travel through its superior speed, safety, and comfort. Although only one DC-1 was ever built, its design paved the way for a highly successful line of Douglas commercial transports</p>
+                </div>
+        </div>
+        <div class="DC" id="DC_2">
+                
+            <h1>the DC 2</h1>
+            <img class="fixsize"src="https://cdn.jetphotos.com/400/5/801552_1718911628.jpg" alt="" id="air300">
+            <button id="DC2">see this plane</button>
+    
+            <div id="div_2">
+                <p>The Douglas DC-2 is an American twin-engine, all-metal monoplane developed by the Douglas Aircraft Company in the early 1930s. Introduced in 1934, it marked a major advancement in commercial aviation, offering greater speed, range, and reliability than earlier airliners. The DC-2 could carry about 14 passengers and was operated by several major airlines worldwide, including KLM, TWA, and American Airlines. Its success proved the viability of modern air transport and laid the foundation for the legendary DC-3, which followed soon after. The DC-2 also saw limited military service as the C-32 and C-33, further demonstrating its versatility and robust design.</p>
+            </div>
+    </div>
+    <div class="DC" id="DC_3">
+                
+        <h1>the DC 3</h1>
+        <img class="fixsize"src="https://airlinehistory.org/wp-content/uploads/2023/01/DC-3-2.png" alt="" id="air300">
+        <button id="DC3">see this plane</button>
+
+        <div id="div_3">
+            <p>The Douglas DC-3 is one of the most iconic and influential aircraft in aviation history. First flown in 1935, it revolutionized air travel by combining reliability, comfort, and efficiency, making passenger air service practical and profitable for the first time. The DC-3 could carry up to 32 passengers and was capable of flying long distances at speeds over 200 mph (320 km/h). During World War II, it served extensively as the C-47 Skytrain and Dakota, transporting troops, cargo, and paratroopers around the world. Renowned for its ruggedness and long service life, many DC-3s remain in operation today — more than 80 years after their introduction — a true testament to its timeless engineering.</p>
+        </div>
+    </div>
+    <div class="DC" id="DC_4">
+                
+        <h1>the DC 4</h1>
+        <img class="fixsize"src="https://upload.wikimedia.org/wikipedia/commons/d/d0/American_Airlines_NC90423.jpg" alt="" id="air300">
+        <button id="DC4">see this plane</button>
+
+        <div id="div_4">
+            <p>The Douglas DC-4 is a four-engine propeller-driven airliner developed by the Douglas Aircraft Company during the early 1940s. Originally designed as a long-range passenger aircraft, it was adapted for military service during World War II as the C-54 Skymaster, playing a crucial role in global transport and logistics. After the war, many DC-4s were converted for civilian use, helping airlines expand international routes and making transoceanic travel more accessible. The DC-4 could carry around 50 passengers and had a range of approximately 4,200 km (2,600 miles). Known for its durability, reliability, and ease of maintenance, the DC-4 became a cornerstone of postwar commercial aviation and a stepping stone to more advanced airliners like the DC-6.</p>
+        </div>
+    </div>
+    <div class="DC" id="DC_5">
+                
+        <h1>the DC 5</h1>
+        <img class="fixsize"src="https://www.goodall.com.au/australian-aviation/dc-5/img01.jpeg" alt="" id="air300">
+        <button id="DC5">see this plane</button>
+
+        <div id="div_5">
+            <p>The Douglas DC-5 was a short-range twin-engine airliner developed by the Douglas Aircraft Company in 1939. It was designed to complement the larger DC-3 and DC-4 by serving smaller routes with lower passenger demand. The DC-5 could carry around 16 to 22 passengers and featured a high-wing design — a rare choice for Douglas aircraft — which provided excellent ground clearance and good visibility for pilots. Despite its advanced design and reliable performance, the DC-5 entered production just as World War II began, limiting commercial orders. Only 12 aircraft were built, many of which were used for military and transport roles. Although not a commercial success, the DC-5’s innovative layout influenced later aircraft designs, marking an interesting but brief chapter in Douglas’s aviation legacy.</p>
+        </div>
+    </div>
+    <div class="DC" id="DC_6">
+                
+        <h1>the DC 6</h1>
+        <img class="fixs1ze"src="https://evertsair.com/asset/5eb45e8237bb9" alt="" id="air300">
+        <button id="DC6">see this plane</button>
+
+        <div id="div_6">
+            <p>The Douglas DC-6 is a four-engine piston airliner developed by the Douglas Aircraft Company after World War II. First flown in 1946, it was designed as an improved and pressurized version of the DC-4, offering greater comfort, range, and speed for both passengers and cargo. The DC-6 could carry between 50 and 80 passengers, depending on configuration, and was capable of flying transcontinental and transatlantic routes. It became a favorite among major airlines such as Pan American, United, and KLM, and was later adapted for military service as the C-118 Liftmaster. Known for its reliability and versatility, many DC-6 aircraft continued operating for decades — some even into the 21st century — especially in cargo, firefighting, and charter roles.</p>
+        </div>
+    </div>
+    <div class="DC" id="DC_7">
+                
+        <h1>the DC 7</h1>
+        <img class="fixs1ze"src="https://i0.wp.com/northwestairlineshistory.org/wp-content/uploads/2024/12/NWA_DC7_N290_inflight-SoCal_publicity-postcard.jpg?resize=840%2C556&ssl=1" alt="" id="air300">
+        <button id="DC7">see this plane</button>
+
+        <div id="div_7">
+            <p>The Douglas DC-7 was the last major piston-engine airliner produced by the Douglas Aircraft Company, introduced in 1953. It was developed from the DC-6 and designed to compete with the Lockheed Super Constellation for long-range, high-speed service on transcontinental and transatlantic routes. Powered by four powerful Wright R-3350 radial engines, the DC-7 could cruise at around 355 mph (570 km/h) and carry up to 105 passengers in comfort. The later DC-7C “Seven Seas” variant extended its range to allow nonstop flights between New York and London — a major milestone at the time. Although the DC-7 was quickly overshadowed by the advent of jet airliners like the Boeing 707 and Douglas DC-8, it represented the peak of piston-powered airliner design and performance.</p>
+        </div>
+    </div>
+    <div class="DC" id="DC_8">
+                
+        <h1>the DC 8</h1>
+        <img class="fixs1ze"src="https://cdn.airlineratings.com/uploads/DC-8-First-Flight.jpg" alt="" id="air300">
+        <button id="DC8">see this plane</button>
+
+        <div id="div_8">
+            <p>The Douglas DC-8 was the first jet-powered airliner built by the Douglas Aircraft Company, marking the company’s entry into the jet age. First flown in 1958, the DC-8 was designed to compete directly with the Boeing 707 and quickly became a cornerstone of long-haul jet travel. It featured four jet engines, a sleek swept-wing design, and could carry between 140 and 250 passengers, depending on the variant. The DC-8 offered impressive range and speed, with later versions capable of cruising at over 600 mph (965 km/h) and flying intercontinental routes. Continuous improvements led to variants like the DC-8-62 and DC-8-63, which extended range and capacity. Many DC-8s were later converted into freighters, and some remain in cargo service today — a testament to the aircraft’s robust engineering and longevity.</p>
+        </div>
+    </div>
+            </div>
+            <div class="planes">
+                <div class="DC2" id="DC_9">
+                
+        <h1>the DC 9</h1>
+        <img class="fixs1ze"src="" alt="" id="air300">
+        <button id="DC9">see this plane</button>
+
+        <div id="div_9">
+            <p></p>
+        </div>
+    </div>
+            </div>
+    
+    </div>
+</body>
+<script src="DC.js"></script>
+</html>
