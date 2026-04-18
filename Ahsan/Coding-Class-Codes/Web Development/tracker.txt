@@ -1,0 +1,7 @@
+basics (html,doctype,body,head,title)
+flex (centering, layouting)
+forms (labels,input)
+Tables (td,th,tr,tbody,thead)
+basic CSS (margins, paddings, fonts, colors, borders)
+Advanced CSS (transitions, transformations, animations)
+lists

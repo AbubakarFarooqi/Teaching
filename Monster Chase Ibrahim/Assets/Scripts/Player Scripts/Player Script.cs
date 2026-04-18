@@ -1,6 +1,8 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour // inheritance
 {
     // it means this variable can be used outside this class
@@ -16,11 +18,13 @@ public class PlayerScript : MonoBehaviour // inheritance
     private Rigidbody2D myBody;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-
+    private const string ENEMY_TAG = "Enemy";
     private bool isBulletOnScreen;
 
     [SerializeField]
     private GameObject BulletReference;
+    public static event Action onPlayerCollidesWithEnemy;
+
 
     void Awake()
     {
@@ -34,6 +38,8 @@ public class PlayerScript : MonoBehaviour // inheritance
         myBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         isBulletOnScreen = false;
+        Live_Script.IfLives0 += endLife;
+
     }
 
     // Update is called once per frame
@@ -69,6 +75,10 @@ public class PlayerScript : MonoBehaviour // inheritance
         }
 
     }
+     void endLife()
+    {
+       SceneManager.LoadScene("GameOverScene"); 
+    }
     void WalkAnimation()
     {
         if (moveDir != 0)
@@ -94,6 +104,12 @@ public class PlayerScript : MonoBehaviour // inheritance
         if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = true;
+        }
+          if (collision.collider.CompareTag(ENEMY_TAG))
+        {
+            Debug.Log("inside if");
+            onPlayerCollidesWithEnemy?.Invoke();
+            this.transform.position = new Vector2(-0.03f, -1.98f);
         }
     }
 
@@ -133,7 +149,7 @@ public class PlayerScript : MonoBehaviour // inheritance
 
     void ShootBullet()
     {
-        if (!isBulletOnScreen && Keyboard.current.spaceKey.IsPressed())
+        if (!isBulletOnScreen && Mouse.current.leftButton.IsPressed())
         {
             var bullet = Instantiate(BulletReference);
 
@@ -160,3 +176,10 @@ public class PlayerScript : MonoBehaviour // inheritance
         isBulletOnScreen = false;
     }
 }
+
+
+
+
+
+
+

@@ -1,0 +1,108 @@
+*{
+    border-radius: 20px;
+}
+.parent {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    gap: 8px;
+    height: 200vh; /* Full viewport height */
+    width: 170vw; /* Full viewport width */
+
+}
+    
+.div1 {
+    grid-column: span 4 / span 4;
+    grid-row: span 4 / span 4;
+    background-image: url('https://www.qantas.com/content/dam/qantas/aircraft/exterior/a380-sydney-airport-landing.jpg/jcr:content/renditions/hero.desktop.jpg'); /* Replace with your image path */
+  background-size: cover; /* Covers entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent image tiling */
+  color: white; /* Optional: text color */
+  
+}
+.div2 {
+    grid-column: span 4 / span 4;
+    grid-row: span 5 / span 5;
+    grid-column-start: 5;
+    background-image: url('https://cdn.plnspttrs.net/11332/ap-bfv-pia-pakistan-international-airlines-boeing-747-367_PlanespottersNet_237721_d401dfc822_o.jpg'); /* Replace with your image path */
+  background-size: cover; /* Covers entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent image tiling */
+  color: white; /* Optional: text color */
+}
+
+.div3 {
+    grid-column: span 4 / span 4;
+    grid-row: span 6 / span 6;
+    grid-column-start: 9;
+    background-image: url('https://d3trj3zqmkebtg.cloudfront.net/pics/15/15063_big.jpg'); /* Replace with your image path */
+  background-size: cover; /* Covers entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent image tiling */
+  color: white; /* Optional: text color */
+}
+
+.div4 {
+    grid-column: span 5 / span 5;
+    grid-row: span 5 / span 5;
+    grid-column-start: 1;
+    grid-row-start: 6;
+    background-image: url('https://media.istockphoto.com/id/2138613700/photo/b-2-stealth-bomber-in-flight.jpg?s=612x612&w=0&k=20&c=ZnWapnnfaDnbcSvi6rSjqM_yZQBi1PadttmfJbFS9LU='); /* Replace with your image path */
+  background-size: cover; /* Covers entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent image tiling */
+  color: white; /* Optional: text color */
+}
+
+.div5 {
+    grid-column: span 4 / span 4;
+    grid-column-start: 1;
+    grid-row-start: 5;
+    background-image: url('https://media.istockphoto.com/id/1365074574/photo/jetblue-airbus-a321-aircraft-los-angeles-international-airport.jpg?s=612x612&w=0&k=20&c=XqvN5C9ITQZglJMqwyaMd0rc3mB41KCUoWV6-GXHvWw='); /* Replace with your image path */
+  background-size: cover; /* Covers entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent image tiling */
+  color: white; /* Optional: text color */
+  height: 100px;
+}
+
+.div6 {
+    grid-column: span 12 / span 12;
+    grid-row: span 2 / span 2;
+    grid-column-start: 1;
+    grid-row-start: 11;
+    background-image: url('https://www.airportspotting.com/wp-content/uploads/2024/08/Boeing_727-227Adv_Southwest_Airlines_JP5893149.jpg'); /* Replace with your image path */
+  background-size: cover; /* Covers entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent image tiling */
+  color: white; /* Optional: text color */
+}
+
+.div7 {
+    grid-column: span 3 / span 3;
+    grid-row: span 5 / span 5;
+    grid-column-start: 6;
+    grid-row-start: 6;
+    background-image: url('https://www.shutterstock.com/image-photo/portland-january-28-2024-photo-260nw-2488707771.jpg'); /* Replace with your image path */
+  background-size: cover; /* Covers entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent image tiling */
+  color: white; /* Optional: text color */
+}
+
+.div8 {
+    grid-column: span 4 / span 4;
+    grid-row: span 4 / span 4;
+    grid-column-start: 9;
+    grid-row-start: 7;
+    background-image: url('https://cdn.airlineratings.com/uploads/B797.jpg'); /* Replace with your image path */
+  background-size: cover; /* Covers entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent image tiling */
+  color: white; /* Optional: text color */
+}
+body{
+    background: #020024;
+background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 44%, rgba(0, 212, 255, 1) 100%);
+}      

@@ -4,7 +4,7 @@ using UnityEngine;
 public class ScoreScript : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
-    private int score = 0;
+    public  static int score = 0;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +21,10 @@ public class ScoreScript : MonoBehaviour
     void AddInScore()
     {
         score++;
+    }
+    void OnDestroy()
+    {
+        BulletScript.onDestroyBullet -= AddInScore;
     }
 
 }

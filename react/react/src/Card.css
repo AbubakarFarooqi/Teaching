@@ -1,0 +1,39 @@
+.card{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    margin: auto;
+    border: 5px solid black;
+    border-radius: 20px;
+    
+}
+img{
+    
+    width: 100%;
+    border-radius: 20px;
+    
+    
+
+}
+
+.b747-2{
+        background-color: #3a6ee2;
+        border-radius: 20px;
+
+}
+
+
+.img{
+    padding: 50px;
+}
+
+.content{
+    padding: 10px;
+}
+
+
+
+

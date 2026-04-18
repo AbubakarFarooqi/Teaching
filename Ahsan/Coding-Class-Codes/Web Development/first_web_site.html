@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .form{
+            height: 500px;
+            width: 600px;
+            background-color: rgb(248, 246, 246);
+        }
+
+        .form-parent{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .first-column{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-right: 75px;
+        }
+
+        .second-column{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-left: 75px;
+        }
+
+        input{
+            height: 30px;
+            width: 200px;
+            margin-bottom: 10px;
+        }
+
+        .box{
+            display: flex;
+            flex-direction: column;
+            font-size: 20px;
+            gap: 10px;
+        }
+
+        .gender-parent{
+            height: 100px;
+            width: 590px;
+        }
+
+        .gender-radio{
+            height: fit-content;
+            display: flex;
+            flex-direction: row;
+        }
+
+        input[type="radio"]{
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            accent-color: grey;
+        }
+
+        .gender{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px;
+        }
+
+
+        .male span {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
+            background: #ccc;          
+            border: 2px solid #999;
+            position: relative;
+        }
+
+        .female span {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
+            background: #ccc;          
+            border: 2px solid #999;
+            position: relative;
+        }
+
+        button{
+            margin-right: 20px;
+            padding: 0px;
+            /* border: none; */
+            text-align: center;
+            width: 200px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form">
+        <h1>Registration</h1>
+    <form>
+        <div class="form-parent">
+            <div class="first-column">
+                <div class="box">
+                    <label for="full-name">Full name</label>
+                    <input type="text" id="full-name" placeholder="Enter your full name">
+                </div>
+
+                <div class="box">
+                    <label for="Email">Email</label>
+                    <input type="text" id="Email" placeholder="Enter your email">
+                </div>
+
+                <div class="box">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+            </div>
+
+            <div class="second-column">
+                <div class="box">
+                    <label for="user-name">Username</label>
+                    <input type="text" id="user-name" placeholder="Enter your username">
+                </div>
+
+                <div class="box">
+                    <label for="phone-number">Phone number</label>
+                    <input type="number" id="phone-number" placeholder="Enter your phone number">
+                </div>
+
+                <div class="box">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password">
+                </div>
+            </div>
+        </div>
+
+        <div class="gender-parent">
+            <h2>Gender</h2>
+            <div class="gender-radio">
+                <div class="gender">
+                     <input type="radio" name="gender" id="male">
+                    <span></span>
+                    <label class="male" for="male">
+                    Male
+                    </label>
+                   
+                </div>
+                <div class="gender">
+                       <input type="radio" name="gender" id="female">
+                    <span></span>
+                    <label class="female" for="female">
+                    Female
+                    </label>
+                 
+                </div>
+            </div>
+        </div>
+
+        <button>Register</button>
+    </form>
+    </div>
+</body>
+</html>
