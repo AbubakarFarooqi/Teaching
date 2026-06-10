@@ -1,9 +1,4 @@
-a = int(input("Enter a value for a"))
-b = int(input("Enter a value for b"))
-
-a = a+b
-b = a-b
-a = a-b
-
-print(f"a -> {a}")
-print(f"b -> {b}")
+if num == 0:
+    
+elif num % 2 == 0
+else

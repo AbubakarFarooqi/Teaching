@@ -77,7 +77,7 @@ if __name__ == "__main__":
     print ("Welcome to Hangman!")
     is_win=False
 
-    while lives > 0:
+    while lives > 0: #Loop
         os.system("cls")
         print(f"{stages[lives]}")
         print ("word: "+" ".join(display_word))
@@ -106,3 +106,12 @@ if __name__ == "__main__":
         print(stages[lives])
         print("word: "+" ".join(display_word))
         print("You lost!")
+
+# list-comprehension
+# os.system("cls")
+# While loop
+# enumerate
+# not in
+# multi-line string
+# .join
+

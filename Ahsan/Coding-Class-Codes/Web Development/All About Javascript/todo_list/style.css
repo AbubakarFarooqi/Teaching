@@ -1,0 +1,97 @@
+.form-parent {
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-fields {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    border: 1px solid grey;
+    border-radius: 3px;
+    outline: none;
+    padding: 5px;
+}
+
+.add-task {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-task button {
+    border: 1px solid snow;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    background-color: rgb(11, 59, 192);
+    width: 75px;
+    margin-bottom: 10px;
+}
+.update-button {
+    border: 1px solid snow;
+    border-radius: 5px;
+    padding: 10px;
+    color: black;
+    background-color: rgb(240, 248, 130);
+    width: 75px;
+    margin-bottom: 10px;
+}
+
+.delete-button {
+    border: 1px solid snow;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    background-color: rgb(221, 25, 25);
+    width: 75px;
+    margin-bottom: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr {
+    border-top: 1px solid rgb(182, 182, 182);
+    border-bottom: 1px solid rgb(182, 182, 182);
+}
+
+/* th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+} */
+
+tbody tr:nth-child(even) {
+  background-color: rgb(233, 231, 231);
+}
+
+td {
+    padding: 5px;
+    text-align: center;
+}
+
+th {
+    padding: 10px;
+}

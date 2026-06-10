@@ -1,12 +1,9 @@
-# simple functions
-# parameterized functions
-# Value returning function
+def multiple_of_10(num):
+    if num % 10 == 0:
+        print(f"{num} is divisible by 10")
+    else:
+        print(f"{num} isn't divisible by 10")
 
-
-def add_two_numbers(num1,num2):
-    result = num1 + num2
-    print(f"result = {result}")
-
-
-add_two_numbers(2,3)
-add_two_numbers(5,7)
+if __name__ == "__main__":
+    num = int(input("Enter a number-> "))
+    multiple_of_10(num)
