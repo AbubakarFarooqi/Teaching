@@ -20,6 +20,12 @@ function updateClock(){
         minutesSpan.textContent = minutes
         secondsSpan.textContent = seconds
     }
+    else{
+        hours = hours % 12
+        hoursSpan.textContent = hours
+        minutesSpan.textContent = minutes
+        secondsSpan.textContent = seconds
+    }
 }
 
 updateClock()
