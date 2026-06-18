@@ -26,8 +26,8 @@ BLUE = (0,0,255)
 BLACK = (0,0,0)
 
 def create_enemies():
-    rect = pygame.Rect(enemy_1_x,enemy_1_y,enemy_height,enemy_width)
-    enemies.append(rect)
+    rect1 = pygame.Rect(enemy_1_x,enemy_1_y,enemy_height,enemy_width)
+    enemies.append(rect1)
 
 def draw_enemies():
     for rect in enemies:
