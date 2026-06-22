@@ -1,5 +1,8 @@
-num1 = input("Enter first num-> ")
-num2 = input("Enter second num-> ")
+num1 = int(input("Enter first num-> "))
+num2 = int(input("Enter second num-> "))
 
-sum = num1+num2
-print("Sum is ",sum)
+multiply = num1*num2
+print("multiplication is ",end='')
+print(multiply)
+
+#you guys have to input 2 number and multiply them
