@@ -35,6 +35,14 @@ RED = (255,0,0)
 BLUE = (0,0,255)
 BLACK = (0,0,0)
 
+def move_player_bullets():
+    for bullet in player_bullets:
+        bullet.y = bullet.y - 5
+        if bullet.y < 0:
+            player_bullets.remove(bullet)
+
+
+
 def create_player_bullet():
     bullet = pygame.Rect(player_x + (player_width//2),player_y-10,bullet_height,bullet_width)
     player_bullets.append(bullet)
@@ -78,5 +86,6 @@ if __name__ == "__main__":
         create_enemies()
         draw_enemies()
         draw_player_bullets()
+        move_player_bullets()
         pygame.display.flip()
         window.fill(BLACK)

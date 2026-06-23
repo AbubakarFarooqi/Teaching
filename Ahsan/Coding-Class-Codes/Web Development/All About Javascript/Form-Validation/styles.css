@@ -39,8 +39,10 @@ form {
 }
 
 button {
-    color: grey;
+    color: white;
     border: none;
     border-radius: 2px;
     padding: 8px;
+    background-color: blue;
+    
 }
