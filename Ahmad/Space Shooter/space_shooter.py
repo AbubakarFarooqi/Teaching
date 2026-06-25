@@ -1,11 +1,14 @@
 import pygame
-
+import time 
+import random
 pygame.init()
 
 HEIGHT = 300
 WIDTH = 800
 
 window = pygame.display.set_mode((WIDTH,HEIGHT))
+
+clock = pygame.time.Clock()
 
 player_height = 50
 player_width = 50
@@ -30,18 +33,44 @@ enemy_3_y = 30
 
 enemies = []
 player_bullets = []
+enemies_bullets = []
 
 RED = (255,0,0)
 BLUE = (0,0,255)
+GREEN = (0,255,0)
 BLACK = (0,0,0)
+
+
+def move_enemy_bullets():
+    for bullet in enemies_bullets:
+        bullet.y = bullet.y + 5
+        if bullet.y > HEIGHT:
+            enemies_bullets.remove(bullet)
+
+def enemy_bullet_fire():
+    enemy_index = random.randint(0,20)
+    if enemy_index < len(enemies):
+        enemy = enemies[enemy_index]
+        bullet = pygame.Rect(enemy.x + (enemy_width//2),enemy.y+5+enemy.height,bullet_height,bullet_width)
+        enemies_bullets.append(bullet)
+
+def draw_enemy_bullets():
+    for bullet in enemies_bullets:
+        pygame.draw.circle(window,GREEN,bullet.center,5)
+
+def detect_enemy_hit():
+    for bullet in player_bullets:
+        for enemy in enemies:
+            if enemy.colliderect(bullet):
+                enemies.remove(enemy)
+                player_bullets.remove(bullet)
+                break
 
 def move_player_bullets():
     for bullet in player_bullets:
         bullet.y = bullet.y - 5
         if bullet.y < 0:
             player_bullets.remove(bullet)
-
-
 
 def create_player_bullet():
     bullet = pygame.Rect(player_x + (player_width//2),player_y-10,bullet_height,bullet_width)
@@ -70,6 +99,7 @@ def draw_player(player_rect):
     pygame.draw.rect(window,BLUE,player_rect)
 if __name__ == "__main__":
     running = True
+    create_enemies()
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -83,9 +113,13 @@ if __name__ == "__main__":
             player_x = player_x + 5
         player_rect = create_player()
         draw_player(player_rect)
-        create_enemies()
         draw_enemies()
         draw_player_bullets()
         move_player_bullets()
+        detect_enemy_hit()
+        enemy_bullet_fire()
+        draw_enemy_bullets()
+        move_enemy_bullets()
         pygame.display.flip()
         window.fill(BLACK)
+        clock.tick(50)

@@ -1,8 +1,6 @@
-num1 = int(input("Enter first num-> "))
-num2 = int(input("Enter second num-> "))
+#Write a program that input birth year and finds age.
+birth_year = int(input("Enter your birth year -> "))
 
-multiply = num1*num2
-print("multiplication is ",end='')
-print(multiply)
+age = 2026 - birth_year
 
-#you guys have to input 2 number and multiply them
+print("your age is ",age)
