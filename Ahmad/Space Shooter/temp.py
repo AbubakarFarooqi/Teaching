@@ -1,7 +1,7 @@
 import pygame
 import time
 import random
-
+import math
 pygame.init()
 
 HEIGHT = 400
@@ -19,7 +19,10 @@ enemy_height = 50
 enemy_width = 50
 bullet_height = 5
 bullet_width = 10
+
 enemies_bullet =[]
+enemies_bullet_dx = []
+enemies_bullet_dy = []
 
 enemy_1_x = 100
 enemy_1_y = 30
@@ -32,7 +35,7 @@ enemy_direction =["left","right","left"]
 enemy_3_x = 700
 enemy_3_y = 30
 
-lives = 3
+lives = 10
 
 
 
@@ -71,25 +74,43 @@ def move_enemy():
             
 
 def derect_player_hit(player):
-    for bullet in enemies_bullet:
-        if player.colliderect(bullet):
-            enemies_bullet.remove(bullet)
+    for i in range(len(enemies_bullet)):
+        if player.colliderect(enemies_bullet[i]):
+            enemies_bullet.pop(i)
+            enemies_bullet_dx.pop(i)
+            enemies_bullet_dy.pop(i)
             return True
     return False
 
-def move_enemy_bullet():
-    for bullet in enemies_bullet:
-        bullet.y = bullet.y + 8
-        if bullet.y > HEIGHT:
-            enemies_bullet.remove(bullet)
-
-
 def enemy_bullet_fire():
-    enemy_index = random.randint(0,20)
+    enemy_index = random.randint(0, 20)
     if enemy_index < len(enemies):
         enemy = enemies[enemy_index]
-        bullet = pygame.Rect(enemy.x + (enemy_width//2),enemy.y+5+enemy.height,bullet_height,bullet_width)
+        bx = enemy.x + (enemy_width // 2)
+        by = enemy.y + 5 + enemy.height
+        bullet = pygame.Rect(bx, by, bullet_height, bullet_width)
+
+        target_x = player_x + (player_width // 2)
+        target_y = player_y + (player_height // 2)
+        diff_x = target_x - bx
+        diff_y = target_y - by
+        distance = math.hypot(diff_x, diff_y) or 1
+
+        speed = 8
         enemies_bullet.append(bullet)
+        enemies_bullet_dx.append((diff_x / distance) * speed)
+        enemies_bullet_dy.append((diff_y / distance) * speed)
+
+
+def move_enemy_bullet():
+    for i in range(len(enemies_bullet) - 1, -1, -1):
+        enemies_bullet[i].x += enemies_bullet_dx[i]
+        enemies_bullet[i].y += enemies_bullet_dy[i]
+        if (enemies_bullet[i].y > HEIGHT or enemies_bullet[i].y < 0
+                or enemies_bullet[i].x < 0 or enemies_bullet[i].x > WIDTH):
+            enemies_bullet.pop(i)
+            enemies_bullet_dx.pop(i)
+            enemies_bullet_dy.pop(i)
 
 def draw_enemy_bullets():
     for bullet in enemies_bullet:
