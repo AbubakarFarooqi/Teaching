@@ -21,6 +21,15 @@ bullet_height = 5
 bullet_width = 10
 enemies_bullet =[]
 
+player_ship_image = pygame.image.load("player.png")
+enemy_ship_image = pygame.image.load("enemy.png")
+background_image = pygame.image.load("background.jpeg")
+
+player_ship_image = pygame.transform.scale(player_ship_image,(player_height,player_width))
+enemy_ship_image = pygame.transform.scale(enemy_ship_image,(enemy_height,enemy_width))
+background_image = pygame.transform.scale(background_image,(WIDTH,HEIGHT))
+
+
 enemy_1_x = 100
 enemy_1_y = 30
 
@@ -38,6 +47,10 @@ lives = 3
 
 enemies =[]
 player_bullets = []
+
+
+
+
 
 RED = (255,0,0)
 BLUE = (0,0,255)
@@ -119,7 +132,14 @@ def create_player_bullet():
 
 def draw_player_bullets():
     for bullet in player_bullets:
-        pygame.draw.circle(window,RED,bullet.center,5)
+        # pygame.draw.circle(window,RED,bullet.center,5)
+        cx, cy = bullet.center
+        for _ in range(4):
+            x = cx + random.randint(-20, 20)
+            y = cy + random.randint(-20, 20)
+            pygame.draw.circle(window, (255, 255, 200), (x, y), 2)
+        window.blit(enemy_ship_image,(bullet.x,bullet.y))
+        # window.blit(enemy_ship_image, bullet)  
 
 def create_enemies():
     rect1 = pygame.Rect(enemy_1_x,enemy_1_y,enemy_height,enemy_width)
@@ -132,14 +152,16 @@ def create_enemies():
 
 def draw_enemies():
     for rect in enemies:
-        pygame.draw.rect(window,RED,rect)
+        # pygame.draw.rect(window,RED,rect)
+        window.blit(enemy_ship_image,(rect.x,rect.y))
 
 
 def create_player():
     return pygame.Rect(player_x,player_y,player_height,player_width)
 
 def draw_player(player_rect):
-    pygame.draw.rect(window,BLUE,player_rect)
+    # pygame.draw.rect(window,BLUE,player_rect)
+    window.blit(player_ship_image,(player_x,player_y))
 if __name__ == "__main__":
     running = True
     create_enemies()
@@ -174,4 +196,5 @@ if __name__ == "__main__":
 
         pygame.display.flip()
         window.fill(BLACK)
+        window.blit(background_image,(0,0))
         clock.tick(50)

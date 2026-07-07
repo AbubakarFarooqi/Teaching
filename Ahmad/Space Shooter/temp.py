@@ -20,6 +20,9 @@ enemy_width = 50
 bullet_height = 5
 bullet_width = 10
 
+
+
+
 enemies_bullet =[]
 enemies_bullet_dx = []
 enemies_bullet_dy = []
@@ -160,7 +163,8 @@ def create_player():
     return pygame.Rect(player_x,player_y,player_height,player_width)
 
 def draw_player(player_rect):
-    pygame.draw.rect(window,BLUE,player_rect)
+    # pygame.draw.rect(window,BLUE,player_rect)
+    window.blit(player_ship_image,(player_x,player_y))
 if __name__ == "__main__":
     running = True
     create_enemies()
