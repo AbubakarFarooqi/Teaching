@@ -1,0 +1,84 @@
+body {
+    height: 100vh;
+    width: 98vw;
+    background-color: #3d5a80;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.weather-card {
+    border-radius: 10px;
+    padding: 40px;
+    height: 500px;
+    width: 500px;
+    background-color: #ecf1f8 ;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    color: #24303f;
+    font-size: 30px;
+}
+
+.label {
+    color: #6b7a8c;
+}
+
+.dropdown-label {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #6b7a8c;
+}
+
+#cities {
+    height: 40px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 15px;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+button {
+    border-radius: 5px;
+    height: 40px;
+    border: none;
+    background-color: #1c2e4a;
+    color: white;
+    margin-bottom: 20px;
+}
+
+#statistic_title {
+    height: 20px;
+    width: 100px;
+    color: #6b7a8c;
+    margin: 5px;
+}
+
+.cityname {
+    color: #24303f;
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.line {
+    width: 500px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.temp-and-wind {
+    font-size: 30px;
+}
+
+.statistic {
+    color: #6b7a8c;
+}

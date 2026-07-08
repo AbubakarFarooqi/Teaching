@@ -1,0 +1,6 @@
+const citySelect = document.getElementById("cities")
+const findWeatherButton = document.getElementById("button")
+const cityCountrySpan = document.getElementById("cityName")
+const tempCelSpan = document.getElementById("temp_cels_number")
+const tempFahSpan = document.getElementById("temp_fahr_number")
+const windSpeedSpan = document.getElementById("wind_speed_number")

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="weather-card">
+        <span class="title">City Weather</span>
+        <span class="label">Current conditions from WeatherAPI</span>
+        <span class="dropdown-label">Choose A City</span>
+        <select name="city-options" id="cities">
+            <option value="New York">New York</option>
+            <option value="London">London</option>
+            <option value="East Brunswick">East Brunswick</option>
+            <option value="Paris">Paris</option>
+            <option value="Cairo">Cairo</option>
+            <option value="Sydney">Sydney</option>
+        </select>
+        <button id = "button">Find Weather</button>
+
+        <span class="cityname" id="cityName">a</span>
+
+        <div class="info">
+            <span id="statistic_title">Temperature</span>
+            <div class="info-spans">
+                <span class="temp-and-wind" id="temp_cels_number">aaa</span>
+                <span class="statistic" id="statistic_temp_cels">°C</span>
+            </div>
+        </div>
+
+        <hr style="border-top: 2px dotted rgba(204, 204, 204, 0.753); border-bottom: none;" class="line">
+
+        <div class="info">
+             <span id="statistic_title">Temperature</span>
+             <div class="info-spans">
+                <span class="temp-and-wind" id="temp_fahr_number">aaa</span>
+                <span class="statistic" id="statistic_temp_fahr">°F</span>
+             </div>
+        </div>
+
+        <hr style="border-top: 2px dotted rgba(204, 204, 204, 0.753); border-bottom: none;" class="line">
+
+        <div class="info">
+            <span id="statistic_title">Wind Speed</span>
+            <div class="info-spans">
+                <span class="temp-and-wind" id="wind_speed_number">aaa</span>
+                <span class="statistic" id="statistic_wind_speed">kph</span>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
