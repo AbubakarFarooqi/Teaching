@@ -1,0 +1,8 @@
+[
+  {"id": 1, "name": "Ahmed", "age": 21, "city": "Lahore", "marks": 85, "passed": true},
+  {"id": 2, "name": "Sara", "age": 22, "city": "Karachi", "marks": 67, "passed": true},
+  {"id": 3, "name": "Bilal", "age": 20, "city": "Islamabad", "marks": 45, "passed": false},
+  {"id": 4, "name": "Hina", "age": 23, "city": "Lahore", "marks": 91, "passed": true},
+  {"id": 5, "name": "Usman", "age": 21, "city": "Multan", "marks": 38, "passed": false},
+  {"id": 6, "name": "Ayesha", "age": 22, "city": "Karachi", "marks": 74, "passed": true}
+]

@@ -1,16 +1,20 @@
 import pandas as pd
+from io import StringIO 
+# df = pd.read_csv('data.csv')
 
-df = pd.read_csv('data.csv')
+# Reading from a JSON
+# json_data = '[{"name":"ali","age":"20","email":"a@gmail.com"}]'
 
-# print(df)
+# df = pd.read_json("data.json")
+# print(df.to_json())
 
-# print(df.head(5))
-# print(df.info())
-# print(df.describe())
-# df_sample = df.head(5)
-# df_sample['country'] = [1,2,3,4,5]
-# print(df_sample)
 
-df.drop(['Date','Category','Value','Product'],axis=1,inplace=True)
+# Reading from Html
+
+url = "https://en.wikipedia.org/wiki/Mobile_country_code"
+
+df = pd.read_html(url,match="Country",header=0)
 
 print(df)
+
+
