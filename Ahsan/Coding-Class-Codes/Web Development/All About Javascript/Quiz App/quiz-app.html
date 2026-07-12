@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz App</title>
+  <style>
+    /* ---------- Simple CSS ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #eef2f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .quiz-box {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    /* Top bar: question count + timer */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    #timer {
+      color: #e74c3c;
+    }
+
+    #question-text {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      background-color: #f5f5f5;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 15px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* When an option is selected */
+    .option.selected {
+      background-color: #d6e9ff;
+      border-color: #3498db;
+    }
+
+    #next-btn, #restart-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #next-btn:hover, #restart-btn:hover {
+      background-color: #2980b9;
+    }
+
+    /* Result screen */
+    #score-text {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .review-item {
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .review-item.correct {
+      background-color: #e8f8ee;
+      border: 1px solid #27ae60;
+    }
+
+    .review-item.wrong {
+      background-color: #fdecea;
+      border: 1px solid #e74c3c;
+    }
+
+    .review-item p {
+      margin-bottom: 4px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-box">
+    <h1>Quiz App</h1>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen">
+      <div class="top-bar">
+        <span id="question-number">Question 1 / 5</span>
+        <span id="timer">Time: 15s</span>
+      </div>
+      <p id="question-text"></p>
+      <div id="options"></div>
+      <button id="next-btn">Next</button>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="hidden">
+      <p id="score-text"></p>
+      <h1 style="font-size: 20px;">Correct Answers</h1>
+      <div id="review"></div>
+      <button id="restart-btn">Restart Quiz</button>
+    </div>
+  </div>
+
+  <script>
+    // ---------- 1. Quiz data (Array of Objects) ----------
+    const questions = [
+      {
+        question: "Which language runs in a web browser?",
+        options: ["Java", "C", "Python", "JavaScript"],
+        answer: 3 // index of correct option
+      },
+      {
+        question: "What does CSS stand for?",
+        options: [
+          "Central Style Sheets",
+          "Cascading Style Sheets",
+          "Cascading Simple Sheets",
+          "Cars SUVs Sailboats"
+        ],
+        answer: 1
+      },
+      {
+        question: "What does HTML stand for?",
+        options: [
+          "Hypertext Markup Language",
+          "Hypertext Markdown Language",
+          "Hyperloop Machine Language",
+          "Helicopters Terminals Motorboats Lamborghinis"
+        ],
+        answer: 0
+      },
+      {
+        question: "Which method adds an item to the end of an array?",
+        options: ["shift()", "pop()", "push()", "unshift()"],
+        answer: 2
+      },
+      {
+        question: "Which keyword declares a constant in JavaScript?",
+        options: ["var", "let", "const", "static"],
+        answer: 2
+      }
+    ];
+
+    // ---------- 2. State management ----------
+    const TIME_PER_QUESTION = 15; // seconds
+
+    let currentQuestion = 0;      // which question we are on
+    let score = 0;                // how many correct
+    let selectedOption = null;    // user's current selection
+    let userAnswers = [];         // store answers for the review screen
+    let timeLeft = TIME_PER_QUESTION;
+    let timerId = null;           // to stop the timer later
+
+    // ---------- 3. Grab elements ----------
+    const quizScreen = document.getElementById("quiz-screen");
+    const resultScreen = document.getElementById("result-screen");
+    const questionNumberEl = document.getElementById("question-number");
+    const timerEl = document.getElementById("timer");
+    const questionTextEl = document.getElementById("question-text");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("next-btn");
+    const scoreTextEl = document.getElementById("score-text");
+    const reviewEl = document.getElementById("review");
+    const restartBtn = document.getElementById("restart-btn");
+
+    // ---------- 4. Show a question ----------
+    function showQuestion() {
+      const q = questions[currentQuestion];
+
+      questionNumberEl.textContent =
+        "Question " + (currentQuestion + 1) + " / " + questions.length;
+      questionTextEl.textContent = q.question;
+
+      // Clear old options
+      optionsEl.innerHTML = "";
+      selectedOption = null;
+
+      // Create a button for each option
+      q.options.forEach(function (optionText, index) {
+        const btn = document.createElement("button");
+        btn.className = "option";
+        btn.textContent = optionText;
+
+        // Event handling: click an option
+        btn.addEventListener("click", function () {
+          // Remove "selected" from all options
+          const allOptions = document.querySelectorAll(".option");
+          allOptions.forEach(function (o) {
+            o.classList.remove("selected");
+          });
+
+          // Mark this one as selected
+          btn.classList.add("selected");
+          selectedOption = index;
+        });
+
+        optionsEl.appendChild(btn);
+      });
+
+      // Change button text on the last question
+      if (currentQuestion === questions.length - 1) {
+        nextBtn.textContent = "Finish";
+      } else {
+        nextBtn.textContent = "Next";
+      }
+
+      startTimer();
+    }
+
+    // ---------- 5. Timer ----------
+    function startTimer() {
+      clearInterval(timerId); // stop any old timer
+      timeLeft = TIME_PER_QUESTION;
+      timerEl.textContent = "Time: " + timeLeft + "s";
+
+      timerId = setInterval(function () {
+        timeLeft--;
+        timerEl.textContent = "Time: " + timeLeft + "s";
+
+        // Conditional logic: time ran out
+        if (timeLeft <= 0) {
+          clearInterval(timerId);
+          goToNextQuestion(); // auto move on
+        }
+      }, 1000);
+    }
+
+    // ---------- 6. Move to next question / finish ----------
+    function goToNextQuestion() {
+      clearInterval(timerId);
+
+      const q = questions[currentQuestion];
+
+      // Save what the user picked (null means no answer / time out)
+      userAnswers.push(selectedOption);
+
+      // Score calculation (conditional logic)
+      if (selectedOption === q.answer) {
+        score++;
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    // ---------- 7. Results + show correct answers ----------
+    function showResults() {
+      quizScreen.classList.add("hidden");
+      resultScreen.classList.remove("hidden");
+
+      scoreTextEl.textContent =
+        "Your score: " + score + " / " + questions.length;
+
+      reviewEl.innerHTML = "";
+
+      questions.forEach(function (q, i) {
+        const userIndex = userAnswers[i];
+        const isCorrect = userIndex === q.answer;
+
+        const item = document.createElement("div");
+        item.className = "review-item " + (isCorrect ? "correct" : "wrong");
+
+        const userAnswerText =
+          userIndex === null ? "No answer (time up)" : q.options[userIndex];
+
+        item.innerHTML =
+          "<p><strong>Q" + (i + 1) + ":</strong> " + q.question + "</p>" +
+          "<p>Your answer: " + userAnswerText + "</p>" +
+          "<p>Correct answer: " + q.options[q.answer] + "</p>";
+
+        reviewEl.appendChild(item);
+      });
+    }
+
+    // ---------- 8. Restart ----------
+    function restartQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      userAnswers = [];
+      selectedOption = null;
+
+      resultScreen.classList.add("hidden");
+      quizScreen.classList.remove("hidden");
+
+      showQuestion();
+    }
+
+    // ---------- 9. Button events ----------
+    nextBtn.addEventListener("click", goToNextQuestion);
+    restartBtn.addEventListener("click", restartQuiz);
+
+    // Start the quiz!
+    showQuestion();
+  </script>
+</body>
+</html>
