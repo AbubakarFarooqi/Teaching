@@ -1,0 +1,135 @@
+body {
+    height: 100vh;
+    width: 98vw;
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quiz {
+    height: 420px;
+    width: 500px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.quiz-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    margin-bottom: 25px;
+}
+
+.questions-and-time {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    margin: 10px;
+}
+
+.time {
+    color: red;
+}
+
+.answers {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.answer {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid rgb(224, 222, 222);
+    padding: 10px;
+    height: 30px;
+    width: 500px;
+    background-color: rgb(243, 242, 242);
+}
+
+.btn {
+    height: 40px;
+    width: 522px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(56, 153, 243);
+    color: white;
+}
+
+.result-screen {
+    padding: 30px;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    height: 725px;
+    width: 450px;
+    background-color: white;
+    border-radius: 1px solid;
+}
+
+.score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.correct-answers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 550;
+    margin-bottom: 25px;
+}
+
+.questions-result {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 5px;
+}
+
+.question-result {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f39090;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-left: 10px;
+    background-color: rgb(252, 236, 236);
+    height: 75px;
+    width: 450px
+}
+
+.question-number {
+    font-weight: 550;
+}
+
+.question-status {
+    display: flex;
+    flex-direction: column;
+    height: 75px;
+}
+
+.result-screen-btn {
+    height: 40px;
+    width: 450px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(56, 153, 243);
+    color: white;
+}

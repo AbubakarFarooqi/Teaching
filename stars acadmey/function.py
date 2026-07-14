@@ -1,8 +1,9 @@
-def bigger(a,b):
+def bigger(a,b=6):
     if a>b:
         return a
     else:
         return b
     
-res=  bigger(num1,num2)
-print("The bigger num is ",res)
+100 math 
+100 list 
+100 tree 

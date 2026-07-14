@@ -10,6 +10,10 @@ WIDTH = 800
 window = pygame.display.set_mode((WIDTH,HEIGHT))
 clock = pygame.time.Clock()
 
+# Fonts for the end screens
+big_font = pygame.font.Font(None, 80)
+small_font = pygame.font.Font(None, 36)
+
 total_numbers_of_enemies = 1
 player_height = 50
 player_width = 50
@@ -24,6 +28,15 @@ enemies_bullet =[]
 player_ship_image = pygame.image.load("player.png")
 enemy_ship_image = pygame.image.load("enemy.png")
 background_image = pygame.image.load("background.jpeg")
+
+#Music and Sounds
+
+bg_music = pygame.mixer.music.load("bg_music.mp3")
+pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.play(-1) # -1 means it will run forever
+pygame.mixer.set_num_channels(16)
+
+bullet_shoot_sound = pygame.mixer.Sound("laser.mp3")
 
 player_ship_image = pygame.transform.scale(player_ship_image,(player_height,player_width))
 enemy_ship_image = pygame.transform.scale(enemy_ship_image,(enemy_height,enemy_width))
@@ -56,6 +69,8 @@ RED = (255,0,0)
 BLUE = (0,0,255)
 BLACK = (0,0,0)
 GREEN = (0,255,0)
+WHITE = (255,255,255)
+YELLOW = (255,255,0)
 
 def is_enemy_collided_with_other(enemy):
     for other_enemy in enemies:
@@ -129,6 +144,8 @@ def create_player_bullet():
         return
     bullet = pygame.Rect(player_x + (player_width//2),player_y -10,bullet_height,bullet_width)
     player_bullets.append(bullet)
+    bullet_shoot_sound.set_volume(1.0)
+    bullet_shoot_sound.play(fade_ms=500)
 
 def draw_player_bullets():
     for bullet in player_bullets:
@@ -158,6 +175,23 @@ def draw_enemies():
 
 def create_player():
     return pygame.Rect(player_x,player_y,player_height,player_width)
+
+def draw_text_centered(text, font, color, center_y):
+    surface = font.render(text, True, color)
+    rect = surface.get_rect(center=(WIDTH // 2, center_y))
+    window.blit(surface, rect)
+ 
+ 
+def draw_game_over_screen():
+    window.fill(BLACK)
+    window.blit(background_image,(0,0))
+    draw_text_centered("GAME OVER", big_font, RED, HEIGHT // 2 - 50)
+ 
+ 
+def draw_win_screen():
+    window.fill(BLACK)
+    window.blit(background_image,(0,0))
+    draw_text_centered("YOU WIN!", big_font, YELLOW, HEIGHT // 2 - 50)
 
 def draw_player(player_rect):
     # pygame.draw.rect(window,BLUE,player_rect)
@@ -191,8 +225,15 @@ if __name__ == "__main__":
         if is_hit_by_bullet == True:
             lives = lives -1
         if lives == 0:
+            draw_game_over_screen()
             running = False
-
+            pygame.display.flip()
+            time.sleep(5)
+        if len(enemies) == 0:
+            draw_win_screen()
+            running = False
+            pygame.display.flip()
+            time.sleep(5)
 
         pygame.display.flip()
         window.fill(BLACK)

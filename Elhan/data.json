@@ -1,8 +1,39 @@
-[
-  {"id": 1, "name": "Ahmed", "age": 21, "city": "Lahore", "marks": 85, "passed": true},
-  {"id": 2, "name": "Sara", "age": 22, "city": "Karachi", "marks": 67, "passed": true},
-  {"id": 3, "name": "Bilal", "age": 20, "city": "Islamabad", "marks": 45, "passed": false},
-  {"id": 4, "name": "Hina", "age": 23, "city": "Lahore", "marks": 91, "passed": true},
-  {"id": 5, "name": "Usman", "age": 21, "city": "Multan", "marks": 38, "passed": false},
-  {"id": 6, "name": "Ayesha", "age": 22, "city": "Karachi", "marks": 74, "passed": true}
-]
+import pandas as pd
+
+data = {
+    "employee": ["Ali", "Sara", "Bilal", "Hina", "Usman", "Ayesha", "Omar", "Zara", "Hassan", "Fatima"],
+    "department": ["IT", "HR", "IT", "Finance", "IT", "HR", "Finance", "IT", "HR", "Finance"],
+    "salary": [90000, 55000, 75000, 82000, None, 60000, 95000, 70000, None, 88000],
+    "age": [28, 35, 41, 29, 45, 31, 38, 26, 50, 33],
+    "years_at_company": [3, 8, 12, 4, 15, 5, 10, 1, 20, 6],
+    "city": ["Lahore", "Karachi", "Lahore", "Islamabad", "Karachi", "Lahore", "Islamabad", "Karachi", "Lahore", "Islamabad"]
+}
+df = pd.DataFrame(data)
+Basics (selection & inspection)
+
+Display the first 5 rows, the shape of the DataFrame, and the data types of each column.
+Select only the employee and salary columns.
+Show all employees who work in the IT department.
+Show all employees older than 30 and earning more than 70,000.
+Sort the DataFrame by salary in descending order.
+
+Cleaning & transformation
+
+Count how many missing values are in each column.
+Fill the missing salaries with the average salary of the whole company.
+Create a new column salary_pkr_lakh = salary divided by 100,000.
+Create a column seniority that says "Senior" if years_at_company ≥ 10, otherwise "Junior" (hint: np.where or .apply).
+Rename the column years_at_company to tenure.
+
+Grouping & aggregation
+
+Find the average salary per department.
+Count how many employees are in each city.
+For each department, find the maximum age and the minimum salary in a single statement (hint: .agg()).
+Which department has the highest total salary bill? Return just the department name.
+
+Challenge
+
+Create a summary table showing, for each city, the number of employees, average age, and average salary — sorted by average salary, highest first, with salary rounded to 0 decimal places.
+
+Expected answers to check yourself against: #11 should give IT ≈ 78,000 (after the fill in #7 changes it — try it both before and after filling to see the difference), #12 should give Lahore 4, Karachi 3, Islamabad 3, and #14 should be IT.
