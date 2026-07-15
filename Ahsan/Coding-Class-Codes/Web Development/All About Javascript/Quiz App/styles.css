@@ -133,3 +133,9 @@ body {
     background-color: rgb(56, 153, 243);
     color: white;
 }
+
+
+.select-option{
+    border: 1px solid #90cbf3;
+    background-color: rgb(62, 180, 248);
+}
