@@ -5,6 +5,8 @@ const option3Span = document.getElementById('op3')
 const option4Span = document.getElementById('op4')
 const nextBtn = document.getElementById('btn')
 const numberOfQuestions = document.getElementById('numberOfQuestions')
+const quizDiv = document.getElementById('quiz')
+const resultDiv = document.getElementById('result')
 
 
 let currentQuestion = 0
@@ -95,10 +97,23 @@ function showQuestion(){
         option4Span.classList.add("select-option")
     })
 
+
+    if (currentQuestion == 4){
+      nextBtn.innerHTML = "Finnish"
+    }
 }
 
 
 nextBtn.addEventListener('click',function(){
+  if (selectedOption == null)
+    return
+
+
+  if (currentQuestion == 4){
+    quizDiv.style.display = "none"
+    resultDiv.style.display = "flex"
+  }
+
   userAnswers.push(selectedOption)
   selectedOption = null
 
