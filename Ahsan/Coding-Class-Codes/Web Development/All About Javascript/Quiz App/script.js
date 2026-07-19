@@ -3,9 +3,14 @@ const option1Span = document.getElementById('op1')
 const option2Span = document.getElementById('op2')
 const option3Span = document.getElementById('op3')
 const option4Span = document.getElementById('op4')
+const nextBtn = document.getElementById('btn')
+const numberOfQuestions = document.getElementById('numberOfQuestions')
 
 
 let currentQuestion = 0
+let userAnswers = []
+let selectedOption = null
+
 const questions = [
     {
         question: "Which language runs in a web browser",
@@ -44,12 +49,20 @@ const questions = [
       }
 ]
 
+function removeSelection(){
+  option1Span.classList.remove("select-option")
+  option2Span.classList.remove("select-option")
+  option3Span.classList.remove("select-option")
+  option4Span.classList.remove("select-option")
+}
+
 function showQuestion(){
+
+    numberOfQuestions.innerHTML = `Question ${currentQuestion+1}/5`
     const questionObject = questions[currentQuestion]
 
     questionSpan.innerHTML = questionObject.question
 
-    selectedOption = null
     
     op1 = questionObject.options[0]
     op2 = questionObject.options[1]
@@ -63,14 +76,37 @@ function showQuestion(){
 
     option1Span.addEventListener('click',function (){
         selectedOption = 0
-        console.log("abc")
+        removeSelection()
         option1Span.classList.add("select-option")
     })
-
-    
-
-
+    option2Span.addEventListener('click',function (){
+      selectedOption = 1
+        removeSelection()
+        option2Span.classList.add("select-option")
+    })
+    option3Span.addEventListener('click',function (){
+      selectedOption = 2
+        removeSelection()
+        option3Span.classList.add("select-option")
+    })
+    option4Span.addEventListener('click',function (){
+      selectedOption = 3
+        removeSelection()
+        option4Span.classList.add("select-option")
+    })
 
 }
+
+
+nextBtn.addEventListener('click',function(){
+  userAnswers.push(selectedOption)
+  selectedOption = null
+
+  currentQuestion = currentQuestion+1
+  removeSelection()
+  showQuestion()
+
+})
+
 
 showQuestion()
