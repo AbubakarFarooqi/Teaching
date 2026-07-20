@@ -102,7 +102,7 @@ body {
     border-radius: 5px;
 }
 
-.question-result {
+.question-result-incorrect {
     display: flex;
     flex-direction: column;
     border: 1px solid #f39090;
@@ -110,6 +110,18 @@ body {
     padding-top: 10px;
     padding-left: 10px;
     background-color: rgb(252, 236, 236);
+    height: 75px;
+    width: 450px
+}
+
+.question-result-correct {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #a1f390;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-left: 10px;
+    background-color: rgb(187, 241, 191);
     height: 75px;
     width: 450px
 }

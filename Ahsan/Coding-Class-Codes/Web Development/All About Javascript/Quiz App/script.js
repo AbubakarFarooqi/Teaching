@@ -7,7 +7,7 @@ const nextBtn = document.getElementById('btn')
 const numberOfQuestions = document.getElementById('numberOfQuestions')
 const quizDiv = document.getElementById('quiz')
 const resultDiv = document.getElementById('result')
-
+const questionsResultsParent = document.getElementById("questionResultsParent")
 
 let currentQuestion = 0
 let userAnswers = []
@@ -103,6 +103,57 @@ function showQuestion(){
     }
 }
 
+function showResult(){
+  let score = 0
+  for(let i=0;i<=4;i++){
+    
+    const questionResultDiv = document.createElement("div")
+
+    const questionStatusDiv = document.createElement("div")
+    questionStatusDiv.classList.add("question-status")
+
+    questionResultDiv.appendChild(questionStatusDiv)
+
+    const questionNumberAndQuestionDiv = document.createElement("div")
+    questionNumberAndQuestionDiv.classList.add("question-number-and-question")
+
+    questionStatusDiv.appendChild(questionNumberAndQuestionDiv)
+
+    const questionNumber = document.createElement("span")
+    questionNumber.innerHTML = `Q${i+1}`
+    questionNumber.classList.add("question-number")
+
+    const resultQuestionTopic = document.createElement("span")
+    resultQuestionTopic.innerHTML = questions[i].question
+    resultQuestionTopic.classList.add("result-question-topic")
+    
+    questionNumberAndQuestionDiv.appendChild(questionNumber)
+    questionNumberAndQuestionDiv.appendChild(resultQuestionTopic)
+
+    const myAnswer = document.createElement("span")
+    myAnswer.innerHTML = `Your Answer: ${questions[i].options[userAnswers[i]]}`
+    myAnswer.classList.add("my-answer")
+
+    const correctAnswer = document.createElement("span")
+    correctAnswer.innerHTML = `Correct Answer: ${questions[i].options[questions[i].answer]}`
+    correctAnswer.classList.add("correct-answer")
+
+    questionStatusDiv.appendChild(myAnswer)
+    questionStatusDiv.appendChild(correctAnswer)
+    
+    questionsResultsParent.appendChild(questionResultDiv)
+    
+    if (questions[i].answer == userAnswers[i]){
+      score = score+1
+      questionResultDiv.classList.add("question-result-correct")
+
+    }
+    else{
+    questionResultDiv.classList.add("question-result-incorrect")
+
+    }
+  }
+}
 
 nextBtn.addEventListener('click',function(){
   if (selectedOption == null)
@@ -112,6 +163,8 @@ nextBtn.addEventListener('click',function(){
   if (currentQuestion == 4){
     quizDiv.style.display = "none"
     resultDiv.style.display = "flex"
+    showResult()
+    return
   }
 
   userAnswers.push(selectedOption)
