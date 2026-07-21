@@ -8,6 +8,8 @@ const numberOfQuestions = document.getElementById('numberOfQuestions')
 const quizDiv = document.getElementById('quiz')
 const resultDiv = document.getElementById('result')
 const questionsResultsParent = document.getElementById("questionResultsParent")
+const scoreSpan = document.getElementById("score")
+const restartBtn = document.getElementById("restartBtn")
 
 let currentQuestion = 0
 let userAnswers = []
@@ -152,8 +154,25 @@ function showResult(){
     questionResultDiv.classList.add("question-result-incorrect")
 
     }
+    scoreSpan.innerHTML = `Your Score: ${score}/5`
   }
 }
+
+
+
+
+restartBtn.addEventListener('click', function(){
+  questionsResultsParent.replaceChildren();
+  currentQuestion = 0
+  userAnswers = []
+  selectedOption = null
+  removeSelection()
+  quizDiv.style.display = "flex"
+  resultDiv.style.display = "none"
+  // reset timer
+  showQuestion()
+})
+
 
 nextBtn.addEventListener('click',function(){
   if (selectedOption == null)
