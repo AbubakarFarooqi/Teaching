@@ -1,6 +1,3 @@
-# Make variables for what's in your lunchbox, like fruit = "apple" and drink = "juice". Print a sentence about your lunch.
+# does a list contain any negative value
 
-fruit = "Mango"
-drink = "Apple Juice"
-
-print("Today I have ",fruit, " And ",drink," for drink")
+[1,5,-3,19,14,-21]

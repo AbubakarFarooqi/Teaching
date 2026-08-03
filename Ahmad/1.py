@@ -1,17 +1,42 @@
-lst = [5,4,3,2,1]
-def min_l(l,j):
-    min = l[j]
-    min_idx = j
-    for i in range (j,len(l)):
-        if l[i] < min:
-            min = l[i]
-            min_idx = i
-    return min,min_idx
+from collections import deque
 
 
-for i in range (0,len(lst)-1):
-    min,min_idx = min_l(lst,i)
-    x =lst[i]
-    lst[i] = min
-    lst[min_idx] = x 
-print(lst)
+graph = {
+    'A':['B','F','G'],
+    'B':['A','C','G'],
+    'C':['B','D','G'],
+    'D':['C','E','G'],
+    'E':['D','F','G'],
+    'F':['A','E','G'],
+    'G':['A','B','C','D','E','F']
+}
+
+def dfs():
+    stack = []
+    visited = []
+    stack.append('A')
+    while len(stack) != 0:
+        n = stack.pop()
+        if n  not in visited:
+            for v in graph[n]:
+                stack.append(v)
+            visited.append(n)
+    return visited
+
+def bfs():
+    q = deque()
+    visited = []
+    q.append('A')
+    while len(q) != 0:
+        n = q.popleft()
+        if n  not in visited:
+            for v in graph[n]:
+                q.append(v)
+            visited.append(n)
+    return visited
+print(dfs())
+
+
+
+
+

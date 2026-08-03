@@ -1,4 +1,2 @@
-x = 5 
-y = 6
-addition = x+y
-print(addition)
+
+for i in range(len())
