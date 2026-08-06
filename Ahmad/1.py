@@ -1,42 +1,8 @@
-from collections import deque
-
-
-graph = {
-    'A':['B','F','G'],
-    'B':['A','C','G'],
-    'C':['B','D','G'],
-    'D':['C','E','G'],
-    'E':['D','F','G'],
-    'F':['A','E','G'],
-    'G':['A','B','C','D','E','F']
-}
-
-def dfs():
-    stack = []
-    visited = []
-    stack.append('A')
-    while len(stack) != 0:
-        n = stack.pop()
-        if n  not in visited:
-            for v in graph[n]:
-                stack.append(v)
-            visited.append(n)
-    return visited
-
-def bfs():
-    q = deque()
-    visited = []
-    q.append('A')
-    while len(q) != 0:
-        n = q.popleft()
-        if n  not in visited:
-            for v in graph[n]:
-                q.append(v)
-            visited.append(n)
-    return visited
-print(dfs())
-
-
-
-
-
+lst = [1,2,3,4,5,6,7,8,9,10]
+idx = [0,1,2,3,4,5,6,7,8,9]
+print("1",lst[2:5])
+print("2",lst[:8])
+print("3",lst[:9:2])
+print("4",lst[::2])
+print("5",lst[:len(lst)-1:1])
+print("6",lst[3::2])
