@@ -1,9 +1,3 @@
-def multiple_of_10(num):
-    if num % 10 == 0:
-        print(f"{num} is divisible by 10")
-    else:
-        print(f"{num} isn't divisible by 10")
+l = [1,2,3,4,5]
 
-if __name__ == "__main__":
-    num = int(input("Enter a number-> "))
-    multiple_of_10(num)
+print(l[3:1:-1])

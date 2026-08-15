@@ -3,3 +3,4 @@ ipykernel
 lxml
 htmlSlib
 beautifulsoup4
+matplotlib
