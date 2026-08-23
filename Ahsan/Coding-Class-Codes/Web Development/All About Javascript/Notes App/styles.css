@@ -5,6 +5,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .app {
@@ -39,13 +40,14 @@ body {
     gap: 10px;
 }
 
-textarea {
+#textarea {
     background-color: rgb(68, 68, 68);
     color: white;
     border: none;
     border-radius: 5px;
     height: 65px;
     width: 600px;
+    padding-top: 20px;
     padding-left: 20px;
 }
 
@@ -103,5 +105,36 @@ button {
 }
 
 .edit-button {
-    background-color: rgb(245, 245, 166);
+    background-color: rgb(111, 224, 111);
+}
+
+.modal {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: center;
+    height: 250px;
+    width: 600px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgb(68, 68, 68);
+    position: absolute;
+}
+
+.edit-note {
+    height: 200px;
+    background-color: rgb(68, 68, 68);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.save-button-div {
+    display: flex;
+    justify-content: right;
+    margin-top: 13px;
+}
+
+.save-button {
+    background-color: rgb(2, 156, 2);
 }

@@ -1,33 +1,106 @@
-const textArea = document.getElementById('textarea')
-const addButton = document.getElementById('add_button')
-const notesDiv = document.getElementById('notes')
+const textArea = document.getElementById("textarea")
+const addButton = document.getElementById("add_button")
+const notes = document.getElementById("notes")
+const body = document.getElementById("body")
 
-addButton.addEventListener("click",()=>{
-    let noteText = textArea.value
-    if (noteText.trim() == ""){
-        alert("Please write something!!!!")
+let allNotes = []
+let notesIds = 1
+
+
+
+function loadNotes(){
+
+}
+
+
+
+
+addButton.addEventListener("click", () => {
+
+    let notesText = textArea.value
+
+    if (notesText.trim() == "") {
+        alert("Write something to add a note.")
         return
     }
-    let noteDiv = document.createElement('div')
-    noteDiv.classList.add('note')
 
-    let noteDetailsDiv = document.createElement('div')
-    noteDetailsDiv.classList.add('note-details')
-    noteDetailsDiv.innerHTML = noteText
+    // Add the actual note text to the array
+    allNotes.push(notesText)
+
+    // Save notes to localStorage
+    localStorage.setItem("notes", JSON.stringify(allNotes))
+
+    let noteDiv = document.createElement("div")
+    noteDiv.classList.add("note")
+
+    noteDiv.setAttribute("id", notesIds)
+    notesIds++
+
+    let noteDetailsDiv = document.createElement("div")
+    noteDetailsDiv.classList.add("note-details")
+    noteDetailsDiv.innerHTML = notesText
     noteDetailsDiv.style.whiteSpace = "pre-wrap"
 
-    let customizeButtonsDiv = document.createElement('div')
-    customizeButtonsDiv.classList.add('customize-buttons')
+    let customizeButtonsDiv = document.createElement("div")
+    customizeButtonsDiv.classList.add("customize-buttons")
 
-    let editButton = document.createElement('button')
-    editButton.classList.add('edit-button')
-    editButton.innerHTML = 'Edit'
-    let deleteButton = document.createElement('button')
-    deleteButton.innerHTML = 'Delete'
-    deleteButton.classList.add('delete-button')
+    let editButton = document.createElement("button")
+    editButton.classList.add("edit-button")
+    editButton.innerHTML = "Edit"
 
-    deleteButton.addEventListener('click',()=>{
+    editButton.addEventListener("click", () => {
+
+        let modalDialog = document.createElement("dialog")
+        modalDialog.classList.add("modal")
+
+        let editNote = document.createElement("textarea")
+        editNote.classList.add("edit-note")
+        editNote.setAttribute("placeholder", "Type your note here")
+
+        let saveButtonDiv = document.createElement("div")
+        saveButtonDiv.classList.add("save-button-div")
+
+        let saveButton = document.createElement("button")
+        saveButton.classList.add("save-button")
+        saveButton.innerHTML = "Save"
+
+        saveButton.addEventListener("click", () => {
+
+            noteDetailsDiv.innerHTML = editNote.value
+            noteDetailsDiv.style.whiteSpace = "pre-wrap"
+
+            modalDialog.style.display = "none"
+            modalDialog.close()
+            idx =  allNotes.findIndex(n => n == notesText)
+            if (idx != -1){
+                allNotes[idx] = editNote.value
+            }
+            localStorage.setItem("notes", JSON.stringify(allNotes))
+
+        })
+
+        modalDialog.appendChild(editNote)
+        modalDialog.appendChild(saveButtonDiv)
+        saveButtonDiv.appendChild(saveButton)
+
+        body.appendChild(modalDialog)
+
+        modalDialog.style.display = "flex"
+        modalDialog.showModal()
+
+        
+
+    })
+
+    let deleteButton = document.createElement("button")
+    deleteButton.classList.add("delete-button")
+    deleteButton.innerHTML = "Delete"
+
+    deleteButton.addEventListener("click", () => {
         noteDiv.remove()
+        allNotes = allNotes.filter(n => n !== notesText)
+        localStorage.setItem("notes", JSON.stringify(allNotes))
+
     })
 
     customizeButtonsDiv.appendChild(editButton)
@@ -36,5 +109,7 @@ addButton.addEventListener("click",()=>{
     noteDiv.appendChild(noteDetailsDiv)
     noteDiv.appendChild(customizeButtonsDiv)
 
-    notesDiv.appendChild(noteDiv)
+    notes.appendChild(noteDiv)
+
+    textArea.value = ""
 })

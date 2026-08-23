@@ -1,5 +1,6 @@
 import pygame
-
+import time
+import random
 pygame.init()
 
 MAZE_LAYOUT = [
@@ -48,6 +49,7 @@ YELLOW = (255, 255, 0)
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 PLAYER_SPEED = 2
+GHOST_SPEED = 2
 window = pygame.display.set_mode((WIDTH,HEIGHT))
 
 
@@ -178,7 +180,7 @@ def is_wall(walls,c,r):
     return (c,r) in walls
 
 def can_move(walls,px,py,direction):
-    if direction == "none":
+    if direction == "none" or direction is None:
         return False
     dx,dy = DIRS[direction]
     c,r = tile_of(px,py)
@@ -218,8 +220,47 @@ def update_player(state):
     if not state["pallets"]:
         state["won"] = True
 
+def draw_center_text(font,text,color):
+    surf = font.render(text, True, color)
+    rect = surf.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    bg = rect.inflate(30, 20)
+    pygame.draw.rect(window, BLACK, bg)
+    pygame.draw.rect(window, color, bg, 2)
+    window.blit(surf, rect)
+
+def ghost_options(walls, g):
+    """Legal directions for a ghost at a grid intersection, no reversing."""
+    opposite = {"up": "down", "down": "up", "left": "right", "right": "left"}
+    opts = []
+    for d in ("up", "down", "left", "right"):
+        if d == opposite.get(g["dir"]):
+            continue
+        if can_move(walls, g["x"], g["y"], d):
+            opts.append(d)
+    if not opts:  # dead end — allow reversing
+        opts = [opposite.get(g["dir"], "left")]
+    return opts
+
+
+def choose_ghost_dir(state, g):
+    """Chase the player (or flee when frightened) with a greedy choice,
+    plus some randomness so ghosts don't all behave identically."""
+    opts = ghost_options(state["walls"], g)
+    if random.random() < 0.25:
+        return random.choice(opts)
+
+def update_ghost(state):
+    for g in state['ghosts']:
+        if on_grid(g['x'],g['y']):
+            g['dir'] = choose_ghost_dir(state,g)
+        speed = GHOST_SPEED if state['fright_timer'] == 0 else max(1,GHOST_SPEED-1)
+        if can_move(state["walls"], g["x"], g["y"], g["dir"]) or not on_grid(g["x"], g["y"]):
+            step(g, g["dir"], speed)
 
 def main():
+    font = pygame.font.SysFont('arial',20,bold=True)
+    big_font = pygame.font.SysFont('arial',32,bold=True)
+
     running = True
     state = build_state()
     while running:
@@ -229,11 +270,19 @@ def main():
             if event.type == pygame.KEYDOWN:
                 handle_input(state,event)
         update_player(state)
+        update_ghost(state)
         window.fill(BLACK)
         draw_maze(state)
         draw_player(state)
         draw_hud(state)
         draw_ghosts(state)
+
+        if state['won'] == True:
+            draw_center_text(big_font,"YOU WIN!",(60,255,60))
+            pygame.display.flip()
+            running = False
+            time.sleep(3)
+
         
         pygame.display.flip()
         
