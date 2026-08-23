@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-
+import numpy as np
 # Basic Line Plot
 # x = [1,2,3,4,5]
 # y = [1,4,9,16,25]
@@ -65,9 +65,9 @@ import matplotlib.pyplot as plt
 # A student recorded weekly study hours and their weekly quiz score:
 
 # python
-weeks = [1, 2, 3, 4, 5, 6, 7, 8]
-study_hours = [2, 3, 3, 5, 6, 4, 7, 8]
-scores = [55, 60, 58, 70, 78, 65, 85, 90]
+# weeks = [1, 2, 3, 4, 5, 6, 7, 8]
+# study_hours = [2, 3, 3, 5, 6, 4, 7, 8]
+# scores = [55, 60, 58, 70, 78, 65, 85, 90]
 
 # Plot both study_hours and scores on the same graph (two lines, use plt.legend()). Then answer:
 
@@ -76,13 +76,13 @@ scores = [55, 60, 58, 70, 78, 65, 85, 90]
 # Predict the score if the student studies 9 hours.
 
 
-plt.plot(weeks,scores,label="week vs score")
-plt.plot(weeks,study_hours,label="week vs study hourse")
-plt.xlabel("Week")
-plt.ylabel("value")
-plt.title("Study hours VS Quiz Scores")
-plt.legend()
-plt.show()
+# plt.plot(weeks,scores,label="week vs score")
+# plt.plot(weeks,study_hours,label="week vs study hourse")
+# plt.xlabel("Week")
+# plt.ylabel("value")
+# plt.title("Study hours VS Quiz Scores")
+# plt.legend()
+# plt.show()
 
 
 # Problem 5: Population Growth
@@ -99,3 +99,14 @@ plt.show()
 # Estimate the population in 2030 if the pattern continues.
 
 
+# data = [1,2,2,2,3,3,3,3,3,3,4,4,5,5,5,5,5,5]
+# plt.hist(data,bins=5,color='green',edgecolor='black')
+# plt.show()
+
+x = [1,2,3,4,5,6,7]
+y = [1,4,9,16,25,36,49]
+
+plt.scatter(x,y,color='blue',marker='x')
+a,b,c = np.polyfit(x,y,2)
+plt.plot(x,a*np.array([n**2 for n in x])+b*np.array(x)+c,color='red')
+plt.show()

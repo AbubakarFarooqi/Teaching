@@ -47,6 +47,7 @@ PALLET_COLOR = (255,184,174)
 YELLOW = (255, 255, 0)
 WHITE = (255,255,255)
 BLACK = (0,0,0)
+PLAYER_SPEED = 2
 window = pygame.display.set_mode((WIDTH,HEIGHT))
 
 
@@ -118,6 +119,15 @@ def draw_player(state):
     radius = TILE//2 -2
     pygame.draw.circle(window,YELLOW,(cx,cy),radius)
 
+    if player['dir'] != "none" and player['mouth']<10:
+        dx,dy = DIRS[player["dir"]]
+        tip = (cx+dx*radius,cy+dy*radius)
+        side = (dy*radius // 2, dx * radius //2)
+        a = (cx+side[0],cy+side[1])
+        b = (cx-side[0],cy-side[1])
+        pygame.draw.polygon(window,BLACK,(tip,a,b))
+
+
 def draw_hud(state):
     font = pygame.font.SysFont('arial',20,bold=True)
     bar_y = ROWS*TILE+8
@@ -174,13 +184,39 @@ def can_move(walls,px,py,direction):
     c,r = tile_of(px,py)
     return not is_wall(walls,c+dx,r+dy)
 
+def step(entity,direction,speed):
+    dx, dy = DIRS[direction]
+    entity['x'] += dx * speed
+    entity['y'] += dy * speed
+
+    entity['x'] %= WIDTH
+
 
 # MOve player + check whether player eats the player
-# def update_player(state):
-#     player = state["player"]
-#     walls = state["walls"]
+def update_player(state):
+    player = state["player"]
+    walls = state["walls"]
 
+    if on_grid(player['x'],player['y']):
+        # is allowed to move
+        if can_move(walls,player['x'],player['y'],player['next_dir']):
+            player['dir'] = player['next_dir']
+        if not can_move(walls,player['x'],player['y'],player['dir']):
+                    player['dir'] = 'none'
 
+    if player['dir'] != 'none':
+        step(player,player['dir'],PLAYER_SPEED)        
+        player['mouth'] = (player['mouth']+1)%20
+
+    # eat pallets
+    if on_grid(player['x'],player['y']):
+        pos = tile_of(player['x'],player['y'])
+        if pos in state['pallets']:
+            state['pallets'].remove(pos)
+            state['score'] += 10
+             
+    if not state["pallets"]:
+        state["won"] = True
 
 
 def main():
@@ -190,13 +226,17 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            handle_input(state,event)
-
+            if event.type == pygame.KEYDOWN:
+                handle_input(state,event)
+        update_player(state)
+        window.fill(BLACK)
         draw_maze(state)
         draw_player(state)
         draw_hud(state)
         draw_ghosts(state)
+        
         pygame.display.flip()
+        
 
 if __name__ == "__main__":
     main()

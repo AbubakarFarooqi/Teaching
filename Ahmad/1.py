@@ -1,8 +1,21 @@
-lst = [1,2,3,4,5,6,7,8,9,10]
-idx = [0,1,2,3,4,5,6,7,8,9]
-print("1",lst[2:5])
-print("2",lst[:8])
-print("3",lst[:9:2])
-print("4",lst[::2])
-print("5",lst[:len(lst)-1:1])
-print("6",lst[3::2])
+def calculate_pizza_price(size):
+    prices = {"small": 800,
+              "medium": 1100,
+              "large": 1500}
+    return prices[size]
+ 
+def apply_discount(price, coupon):
+    if coupon == "SAVE10":
+        return price - (price * 0.10)
+    return price
+ 
+def add_tax(price):
+    return price + (price * 0.05)
+
+
+# UNIT TEST: one function, alone
+assert apply_discount(1000, "SAVE10") == 909
+assert apply_discount(1000, "") == 1000
+assert apply_discount(500, "FAKE99") == 500
+ 
+print("Stop 1: unit tests passed!")

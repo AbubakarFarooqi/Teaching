@@ -10,6 +10,7 @@ addButton.addEventListener("click",()=>{
     }
     let noteDiv = document.createElement('div')
     noteDiv.classList.add('note')
+
     let noteDetailsDiv = document.createElement('div')
     noteDetailsDiv.classList.add('note-details')
     noteDetailsDiv.innerHTML = noteText
@@ -24,6 +25,10 @@ addButton.addEventListener("click",()=>{
     let deleteButton = document.createElement('button')
     deleteButton.innerHTML = 'Delete'
     deleteButton.classList.add('delete-button')
+
+    deleteButton.addEventListener('click',()=>{
+        noteDiv.remove()
+    })
 
     customizeButtonsDiv.appendChild(editButton)
     customizeButtonsDiv.appendChild(deleteButton)
