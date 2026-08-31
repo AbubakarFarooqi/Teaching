@@ -81,6 +81,7 @@ def build_state():
                 "x": gc * TILE,
                 "y": gr * TILE,
                 "dir":"left",
+                "home": (gc, gr),
                 "color":GHOST_COLORS[i % len(GHOST_COLORS)],
                 "eaten":False
             }
@@ -257,6 +258,34 @@ def update_ghost(state):
         if can_move(state["walls"], g["x"], g["y"], g["dir"]) or not on_grid(g["x"], g["y"]):
             step(g, g["dir"], speed)
 
+def reset_positions(state):
+    p = state["player"]
+    p["x"], p["y"] = p["start"][0] * TILE, p["start"][1] * TILE
+    p["dir"] = p["next_dir"] = "none"
+    for g in state["ghosts"]:
+        g["x"], g["y"] = g["home"][0] * TILE, g["home"][1] * TILE
+        g["dir"] = "left"
+        g["eaten"] = False
+    state["fright_timer"] = 0
+
+def check_collisions(state):
+    p = state["player"]
+    for g in state["ghosts"]:
+        if abs(g["x"] - p["x"]) < TILE * 0.6 and abs(g["y"] - p["y"]) < TILE * 0.6:
+            if state["fright_timer"] > 0 and not g["eaten"]:
+                g["eaten"] = True
+                g["x"], g["y"] = g["home"][0] * TILE, g["home"][1] * TILE
+                state["score"] += 200
+            elif state["fright_timer"] == 0 or g["eaten"]:
+                state["lives"] -= 1
+                if state["lives"] <= 0:
+                    state["game_over"] = True
+                else:
+                    reset_positions(state)
+                return
+
+
+
 def main():
     font = pygame.font.SysFont('arial',20,bold=True)
     big_font = pygame.font.SysFont('arial',32,bold=True)
@@ -269,14 +298,21 @@ def main():
                 running = False
             if event.type == pygame.KEYDOWN:
                 handle_input(state,event)
-        update_player(state)
-        update_ghost(state)
+
+        if not state["game_over"] and not state["won"]:
+            update_player(state)
+            update_ghost(state)
+            check_collisions(state)
+
+
         window.fill(BLACK)
         draw_maze(state)
         draw_player(state)
         draw_hud(state)
         draw_ghosts(state)
 
+        if state["game_over"]:
+            draw_center_text(big_font, "GAME OVER — press R", (255, 60, 60))
         if state['won'] == True:
             draw_center_text(big_font,"YOU WIN!",(60,255,60))
             pygame.display.flip()

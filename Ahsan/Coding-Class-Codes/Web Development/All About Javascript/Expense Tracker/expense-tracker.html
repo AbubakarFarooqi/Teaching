@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pocket Ledger — Expense Tracker</title>
+
+  <style>
+    /* ============================================
+       CSS — kept simple and readable for learning
+       ============================================ */
+
+    /* CSS variables = named colors we reuse everywhere */
+    :root {
+      --ink: #22303c;        /* main text color */
+      --paper: #f2f5f7;      /* page background */
+      --card: #ffffff;       /* card background */
+      --green: #1e8e5a;      /* income */
+      --red: #d64545;        /* expense */
+      --navy: #22303c;       /* balance card */
+      --line: #e3e9ee;       /* borders */
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    .app {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 22px;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      color: #6b7a88;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* ---- Balance card ---- */
+    .balance-card {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .balance-card .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      opacity: 0.7;
+    }
+
+    /* Monospace font makes numbers line up like a ledger */
+    .balance-card .amount {
+      font-family: "Courier New", monospace;
+      font-size: 34px;
+      font-weight: bold;
+      margin: 6px 0 14px;
+    }
+
+    .totals {
+      display: flex;
+      gap: 12px;
+    }
+
+    .totals div {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 13px;
+    }
+
+    .totals .num {
+      font-family: "Courier New", monospace;
+      font-size: 17px;
+      font-weight: bold;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .totals .income .num  { color: #7fe0b0; }
+    .totals .expense .num { color: #ff9b9b; }
+
+    /* ---- Form ---- */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .card h2 {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin: 10px 0 4px;
+      color: #4a5a68;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 15px;
+      background: #fbfcfd;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid var(--green);
+      outline-offset: 1px;
+    }
+
+    button.add-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: var(--green);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button.add-btn:hover { background: #177a4b; }
+
+    /* ---- Filter buttons ---- */
+    .filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .filters button {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* .active class is toggled by JavaScript */
+    .filters button.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    /* ---- Transaction list ---- */
+    ul { list-style: none; }
+
+    li.transaction {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--green); /* colored edge */
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+
+    li.transaction.expense { border-left-color: var(--red); }
+
+    .t-desc { font-size: 14px; font-weight: 600; }
+    .t-date { font-size: 11px; color: #8a97a3; }
+
+    .t-amount {
+      font-family: "Courier New", monospace;
+      font-weight: bold;
+      font-size: 15px;
+      color: var(--green);
+      margin-right: 10px;
+    }
+
+    li.transaction.expense .t-amount { color: var(--red); }
+
+    .delete-btn {
+      border: none;
+      background: none;
+      color: #b0bcc7;
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .delete-btn:hover { color: var(--red); }
+
+    .empty {
+      text-align: center;
+      color: #8a97a3;
+      font-size: 14px;
+      padding: 24px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <h1>Pocket Ledger</h1>
+    <p class="subtitle">Track your income and expenses</p>
+
+    <!-- ===== BALANCE ===== -->
+    <div class="balance-card">
+      <div class="label">Current Balance</div>
+      <div class="amount" id="balance">Rs 0.00</div>
+      <div class="totals">
+        <div class="income">Income <span class="num" id="total-income">Rs 0.00</span></div>
+        <div class="expense">Expense <span class="num" id="total-expense">Rs 0.00</span></div>
+      </div>
+    </div>
+
+    <!-- ===== FORM (Create) ===== -->
+    <div class="card">
+      <h2>Add Transaction</h2>
+      <form id="transaction-form">
+        <label for="type">Type</label>
+        <select id="type">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+
+        <label for="description">Description</label>
+        <input type="text" id="description" placeholder="e.g. Salary, Groceries" required />
+
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" placeholder="0.00" min="0.01" step="0.01" required />
+
+        <button type="submit" class="add-btn">Add Transaction</button>
+      </form>
+    </div>
+
+    <!-- ===== FILTERS ===== -->
+    <div class="filters">
+      <button data-filter="all" class="active">All</button>
+      <button data-filter="income">Income</button>
+      <button data-filter="expense">Expense</button>
+    </div>
+
+    <!-- ===== LIST (Read + Delete) ===== -->
+    <ul id="transaction-list"></ul>
+  </div>
+
+  <script>
+    /* =====================================================
+       JAVASCRIPT — the logic. Read the comments top to bottom.
+
+       Concepts practiced:
+       1. Forms        → listening to the "submit" event
+       2. Array methods→ push, filter, reduce, map
+       3. CRUD         → Create, Read, (Update balance), Delete
+       4. localStorage → saving data so it survives page refresh
+       ===================================================== */
+
+    // ---------- STATE ----------
+    // One array holds ALL our data. Each transaction is an object:
+    // { id: 123, type: "expense", description: "Tea", amount: 50 }
+
+    // Load saved transactions from localStorage, or start empty.
+    // localStorage only stores strings, so we use JSON.parse to
+    // turn the saved string back into a real array.
+    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+    // Which filter button is active right now
+    let currentFilter = "all";
+
+    // ---------- GRAB ELEMENTS from the page ----------
+    const form = document.getElementById("transaction-form");
+    const typeInput = document.getElementById("type");
+    const descInput = document.getElementById("description");
+    const amountInput = document.getElementById("amount");
+    const listEl = document.getElementById("transaction-list");
+    const balanceEl = document.getElementById("balance");
+    const incomeEl = document.getElementById("total-income");
+    const expenseEl = document.getElementById("total-expense");
+    const filterButtons = document.querySelectorAll(".filters button");
+
+    // ---------- HELPER: format a number like Rs 1,250.00 ----------
+    function formatMoney(num) {
+      return "Rs " + num.toLocaleString("en-PK", { minimumFractionDigits: 2 });
+    }
+
+    // ---------- SAVE (localStorage) ----------
+    // JSON.stringify turns our array into a string so it can be stored.
+    function saveToLocalStorage() {
+      localStorage.setItem("transactions", JSON.stringify(transactions));
+    }
+
+    // ---------- CREATE ----------
+    form.addEventListener("submit", function (event) {
+      // Stop the page from reloading (the default form behavior)
+      event.preventDefault();
+
+      // Build a new transaction object from the form values
+      const newTransaction = {
+        id: Date.now(), // current time in ms = easy unique id
+        type: typeInput.value,
+        description: descInput.value.trim(),
+        amount: Number(amountInput.value),
+        date: new Date().toLocaleDateString()
+      };
+
+      // ARRAY METHOD: push adds an item to the end of the array
+      transactions.push(newTransaction);
+
+      saveToLocalStorage();
+      render();
+
+      // Clear the form for the next entry
+      form.reset();
+      descInput.focus();
+    });
+
+    // ---------- DELETE ----------
+    function deleteTransaction(id) {
+      // ARRAY METHOD: filter keeps only items that pass the test.
+      // Here we keep every transaction EXCEPT the one with this id.
+      transactions = transactions.filter(function (t) {
+        return t.id !== id;
+      });
+
+      saveToLocalStorage();
+      render();
+    }
+
+    // ---------- FILTER BUTTONS ----------
+    filterButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        // Remember which filter was clicked ("all", "income", "expense")
+        currentFilter = button.dataset.filter;
+
+        // Move the .active class to the clicked button
+        filterButtons.forEach(function (b) { b.classList.remove("active"); });
+        button.classList.add("active");
+
+        render();
+      });
+    });
+
+    // ---------- CALCULATE TOTALS ----------
+    function updateBalance() {
+      // ARRAY METHOD: reduce boils an array down to one value.
+      // Start at 0, then add each income amount.
+      const income = transactions
+        .filter(function (t) { return t.type === "income"; })
+        .reduce(function (sum, t) { return sum + t.amount; }, 0);
+
+      const expense = transactions
+        .filter(function (t) { return t.type === "expense"; })
+        .reduce(function (sum, t) { return sum + t.amount; }, 0);
+
+      balanceEl.textContent = formatMoney(income - expense);
+      incomeEl.textContent = formatMoney(income);
+      expenseEl.textContent = formatMoney(expense);
+    }
+
+    // ---------- READ / RENDER ----------
+    // This function redraws the list. We call it after every change.
+    function render() {
+      // Apply the current filter first
+      let visible = transactions;
+      if (currentFilter !== "all") {
+        visible = transactions.filter(function (t) {
+          return t.type === currentFilter;
+        });
+      }
+
+      // If there's nothing to show, display a friendly message
+      if (visible.length === 0) {
+        listEl.innerHTML = '<li class="empty">No transactions yet. Add one above!</li>';
+        updateBalance();
+        return;
+      }
+
+      // ARRAY METHOD: map turns each transaction object into an
+      // HTML string, then join glues them all together.
+      listEl.innerHTML = visible.map(function (t) {
+        const sign = t.type === "income" ? "+" : "−";
+        return (
+          '<li class="transaction ' + t.type + '">' +
+            '<div>' +
+              '<div class="t-desc">' + t.description + '</div>' +
+              '<div class="t-date">' + t.date + '</div>' +
+            '</div>' +
+            '<div>' +
+              '<span class="t-amount">' + sign + ' ' + formatMoney(t.amount) + '</span>' +
+              '<button class="delete-btn" onclick="deleteTransaction(' + t.id + ')" title="Delete">✕</button>' +
+            '</div>' +
+          '</li>'
+        );
+      }).join("");
+
+      updateBalance();
+    }
+
+    // Draw the saved data as soon as the page loads
+    render();
+  </script>
+</body>
+</html>
