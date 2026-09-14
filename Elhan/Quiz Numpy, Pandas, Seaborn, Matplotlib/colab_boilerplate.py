@@ -1,0 +1,55 @@
+# ===== RUN THIS CELL FIRST (do not edit) =====
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from io import StringIO
+
+sns.set_theme()
+
+csv_data = """Title,Genre,Platform,Release_Year,Rating,Price,Copies_Sold_Millions,Hours_To_Beat,Multiplayer
+Pixel Racer,Racing,Switch,2019,8.1,39.99,3.2,12.0,Yes
+Dragon Quest Kids,RPG,PC,2018,9.0,49.99,5.4,60.0,No
+Block Builder,Sandbox,PC,2015,9.5,26.95,42.0,999.0,Yes
+Star Blaster,Shooter,Xbox,2020,7.4,59.99,2.1,9.0,Yes
+Farm Friends,Simulation,Switch,2021,8.7,19.99,6.8,40.0,No
+Kart Kings,Racing,Switch,2017,9.2,59.99,21.5,15.0,Yes
+Puzzle Planet,Puzzle,Mobile,2022,7.9,0.0,15.3,8.0,No
+Zombie Garden,Strategy,Mobile,2016,8.3,4.99,12.0,20.0,No
+Sky Pirates,Adventure,PlayStation,2019,,49.99,4.4,25.0,No
+Robo Soccer,Sports,PlayStation,2020,7.6,29.99,3.9,10.0,Yes
+Mystic Forest,RPG,Switch,2023,9.1,59.99,7.2,55.0,No
+Cube Jumper,Platformer,Mobile,2018,6.9,0.0,30.1,5.0,No
+Galaxy Wars,Shooter,PC,2017,8.0,39.99,8.5,14.0,Yes
+Pet Hospital,Simulation,Mobile,2020,7.2,2.99,9.7,18.0,No
+Ninja Dash,Platformer,Switch,2016,8.4,24.99,4.0,7.0,No
+Castle Siege,Strategy,PC,2019,8.6,34.99,2.8,35.0,Yes
+Ocean Explorer,Adventure,Xbox,2022,8.2,44.99,1.9,22.0,No
+Hoops Hero,Sports,Xbox,2018,7.1,59.99,5.5,12.0,Yes
+Candy Crusher,Puzzle,Mobile,2014,7.5,0.0,55.0,6.0,No
+Speed Demons,Racing,PlayStation,2021,8.0,49.99,3.3,11.0,Yes
+Dungeon Dive,RPG,PC,2020,8.9,29.99,6.1,45.0,Yes
+Bird Flock,Puzzle,Mobile,2019,6.5,0.0,20.4,,No
+Volcano Run,Platformer,PlayStation,2017,7.8,19.99,2.6,8.0,No
+Tank Battle,Shooter,Xbox,2016,,39.99,4.8,10.0,Yes
+Cooking Craze,Simulation,Switch,2019,8.5,29.99,5.9,30.0,Yes
+Alien Colony,Strategy,PC,2022,9.3,44.99,3.7,50.0,No
+Jungle Trek,Adventure,Switch,2018,8.0,39.99,3.1,20.0,No
+Goal Masters,Sports,PlayStation,2023,8.4,69.99,7.0,13.0,Yes
+Moon Miner,Sandbox,PC,2021,8.2,19.99,4.5,80.0,Yes
+Rhythm Rush,Music,Switch,2020,8.8,34.99,2.2,9.0,Yes
+Fossil Finder,Puzzle,PC,2021,7.7,9.99,1.4,12.0,No
+Wave Rider,Sports,Mobile,2022,7.0,0.0,8.8,6.0,No
+Knight Legends,RPG,Xbox,2019,8.6,59.99,5.0,70.0,Yes
+Bubble Pop,Puzzle,Mobile,2017,6.8,0.0,25.6,3.0,No
+Desert Rally,Racing,Xbox,2018,7.7,49.99,2.4,11.0,Yes
+Fairy Village,Simulation,PC,2016,8.9,14.99,10.2,65.0,Yes
+Chess Champs,Strategy,Mobile,2020,8.1,0.0,6.3,25.0,Yes
+Robot Rumble,Fighting,PlayStation,2018,7.9,39.99,3.6,9.0,Yes
+Cloud Hopper,Platformer,Switch,2022,8.3,29.99,1.8,6.0,No
+Deep Sea Fishing,Simulation,Xbox,2017,6.7,24.99,1.1,15.0,No
+"""
+
+df = pd.read_csv(StringIO(csv_data))
+print("Dataset loaded! Shape:", df.shape)
+df.head()

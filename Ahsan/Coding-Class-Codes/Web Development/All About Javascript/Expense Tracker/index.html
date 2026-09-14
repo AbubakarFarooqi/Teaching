@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="expense-tracker">
+        <span class="title">Pocket Ledger</span>
+        <span class="title-description">Track your income and expenses</span>
+        
+        <div class="current-balance">
+            <span class="current-balance-span">Current Balance</span>
+            <span class="balance-amount" id="curBalSpan">$ 0.00</span>
+            <div class="money-count">
+                <div class="income">
+                    <span class="income-title">Income</span>
+                    <span class="income-amount" id="incomeSpan">$ 0.00</span>
+                </div>
+
+                <div class="expense">
+                    <span class="expense-title">Expense</span>
+                    <span class="expense-amount" id="expenseSpan">$ 0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <form>
+            <div class="form-title">
+                <span>Add Transaction</span>
+            </div>
+            <div class="inputs">
+                <div class="input">
+                    <span class="input-title">Type</span>
+                        <select class="input" name="Type" id="type">
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                </div>
+
+                <div class="input">
+                    <span class="input-title">Description</span>
+                    <input type="text" placeholder="e.g. Salary, Groceries" id="description">
+                </div>
+
+                <div class="input">
+                    <span class="input-title">Amount</span>
+                    <input type="number" placeholder="0.00" id="amount">
+                </div>
+
+                <button class="add-transaction" id="addTransaction">Add Transaction</button>
+            </div>
+        </form>
+
+            <div class="pages">
+                <button class="page button-active">All</button>
+                <button class="page">Income</button>
+                <Button class="page">Expense</Button>
+            </div>
+
+        <div class="transaction-info">
+            <span class="transaction-info-span" id="transactionInfoSpan">No transactions yet. Add one above!</span>
+                <div class="transaction-history" id="transactionHistory">
+                    <!-- <div class="income-transaction" id="incomeTransaction">
+                        <div class="transaction-details" id="incomeTransactionDetails">
+                            <span class="transaction-description" id="incomeTransactionDescription">zsgrhyursergshyrhy</span>
+                            <span class="transaction-date" id="incomeTransactionDate">9/7/2026</span>
+                        </div>
+
+                        <div class="amount-and-cancel" id="incomeAmountAndCancel">
+                            <div class="income-transaction-amount" id="incomeTransactionAmount">
+                                <span id="incomeTransactionAmountSpan">+ $100</span>
+                            </div>
+                        <i class="fa-solid fa-x" id="incomeCancelTransaction"></i>
+                        </div>
+                    </div>
+
+                    <div class="expense-transaction" id="expenseTransaction">
+                        <div class="transaction-details" id="expenseTransactionDetails">
+                            <span class="transaction-description" id="expenseTransactionDescription">sgzgredgtdsg</span>
+                            <span class="transaction-date" id="expenseTransactionDate">9/7/2026</span>
+                        </div>
+
+                        <div class="amount-and-cancel" id="expenseAmountAndCancel">
+                            <div class="expense-transaction-amount" id="expenseTransactionAmount">
+                                <span id="expenseTransactionAmountSpan">- $100</span>
+                            </div>
+                        <i class="fa-solid fa-x" id="expenseCancelTransaction"></i>
+                        </div>
+                    </div> -->
+                </div>
+        </div>
+
+        </form>
+    </div>
+</body>
+<script src="script.js"></script>
+<script src="https://kit.fontawesome.com/b789985daa.js" crossorigin="anonymous"></script>
+</html>

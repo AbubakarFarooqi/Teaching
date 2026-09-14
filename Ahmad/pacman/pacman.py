@@ -2,6 +2,7 @@ import pygame
 import time
 import random
 pygame.init()
+clock = pygame.time.Clock()
 
 MAZE_LAYOUT = [
     "###################",
@@ -48,8 +49,11 @@ PALLET_COLOR = (255,184,174)
 YELLOW = (255, 255, 0)
 WHITE = (255,255,255)
 BLACK = (0,0,0)
+FRIGHT_COLOR = (50,50,250)
 PLAYER_SPEED = 2
 GHOST_SPEED = 2
+FPS = 30
+FRIGHTENED_TIME = 6 * FPS
 window = pygame.display.set_mode((WIDTH,HEIGHT))
 
 
@@ -140,11 +144,18 @@ def draw_hud(state):
     window.blit(lives_text,(WIDTH-lives_text.get_width()-10,bar_y))
 
 def draw_ghosts(state):
+    frightened = state["fright_timer"] > 0
+    blink = frightened and state["fright_timer"] < 2 * FPS and (state["fright_timer"] // 15) % 2 == 0
+
     for g in state["ghosts"]:
         x = int(g["x"])
         y = int(g["y"])
         color = g["color"]
-        
+        x, y = int(g["x"]), int(g["y"])
+        if frightened and not g["eaten"]:
+            color = WHITE if blink else FRIGHT_COLOR
+        else:
+            color = g["color"]
         body = pygame.Rect(x+2,y+2,TILE-4,TILE-4)
         pygame.draw.rect(window,color,body,border_radius = 8)
         #Eyes
@@ -217,6 +228,12 @@ def update_player(state):
         if pos in state['pallets']:
             state['pallets'].remove(pos)
             state['score'] += 10
+        elif pos in state["power_pellets"]:
+            state["power_pellets"].remove(pos)
+            state["score"] += 50
+            state["fright_timer"] = FRIGHTENED_TIME
+            for g in state["ghosts"]:
+                g["eaten"] = False
              
     if not state["pallets"]:
         state["won"] = True
@@ -258,6 +275,10 @@ def update_ghost(state):
         if can_move(state["walls"], g["x"], g["y"], g["dir"]) or not on_grid(g["x"], g["y"]):
             step(g, g["dir"], speed)
 
+        if state["fright_timer"] > 0:
+                state["fright_timer"] -= 1
+        
+
 def reset_positions(state):
     p = state["player"]
     p["x"], p["y"] = p["start"][0] * TILE, p["start"][1] * TILE
@@ -297,6 +318,8 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r and (state["game_over"] or state['won']):
+                    state = build_state()
                 handle_input(state,event)
 
         if not state["game_over"] and not state["won"]:
@@ -313,14 +336,15 @@ def main():
 
         if state["game_over"]:
             draw_center_text(big_font, "GAME OVER — press R", (255, 60, 60))
-        if state['won'] == True:
+        if state['won']:
             draw_center_text(big_font,"YOU WIN!",(60,255,60))
-            pygame.display.flip()
-            running = False
-            time.sleep(3)
+            # pygame.display.flip()
+            # running = False
+            # time.sleep(3)
 
         
         pygame.display.flip()
+        clock.tick(FPS)
         
 
 if __name__ == "__main__":
